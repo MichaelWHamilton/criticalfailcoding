@@ -20,3 +20,15 @@ p {
     font-size: 1.2rem;
     color: #555;
 }
+
+
+/* style link for color game temp */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
