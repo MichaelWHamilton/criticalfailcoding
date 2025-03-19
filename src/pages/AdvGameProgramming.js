@@ -44,9 +44,9 @@ const AdvGameProgramming = () => {
             <section>
                 <h2>Code Implementation Example</h2>
                 <pre><code>
-// Teleportation mechanic (Unity C#)
+Teleportation mechanic (Unity C#)
 if (Input.GetKeyDown(KeyCode.T) && canTeleport) {
-    player.transform.position = teleportTarget.position;
+    player.transform.position = teleportTarget.position
 }
                 </code></pre>
                 <p><em>Figure 3: Example of the teleportation mechanic in Unity</em></p>
