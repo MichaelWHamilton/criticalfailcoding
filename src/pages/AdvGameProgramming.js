@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import "./ReportStyles.css";
+import "../styles/ReportStyles.css";
 
 const AdvGameProgramming = () => {
     return (
@@ -44,11 +44,11 @@ const AdvGameProgramming = () => {
 
             <section>
                 <h2>Code Implementation Example</h2>
-                <pre><code>
+                <pre><code>{`
                     Teleportation mechanic (Unity C#)
                     if (Input.GetKeyDown(KeyCode.T) && canTeleport) {
                         player.transform.position = teleportTarget.position
-                    }
+                    }`}
                 </code></pre>
                 <p><em>Figure 3: Example of the teleportation mechanic in Unity</em></p>
             </section>
