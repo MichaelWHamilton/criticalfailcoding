@@ -731,8 +731,7 @@ if (hitColliders.Length > 0)
                         src="https://drive.google.com/file/d/1-HBnwb0kjhCwfRTEx4dBXHFnyo303Gz-/preview" 
                         width="100%" 
                         height="400"
-                        allow="autoplay"
-                        onLoad={() => handleVideoPlay("Teleport Mechanic and Particle Effects")}>
+                        allow="autoplay">
                     </iframe>
                     <figcaption><strong>Figure 12:</strong> Demonstration of the teleportation system.</figcaption>
 
