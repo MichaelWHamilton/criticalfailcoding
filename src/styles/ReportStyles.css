@@ -51,3 +51,19 @@ footer {
     padding-top: 10px;
     border-top: 2px solid #333;
 }
+
+
+.half-size-img {
+    width: 50%; /* Makes the image half the original width */
+    height: auto; /* Maintains aspect ratio */
+    display: block;
+    margin: 0 auto; /* Centers the image */
+}
+
+.section-divider {
+    width: 100%;
+    height: 2px;
+    background-color: lightgray; /* Light gray color */
+    margin: 40px 0; /* Space above and below */
+    opacity: 0.6; /* Slight transparency */
+}
