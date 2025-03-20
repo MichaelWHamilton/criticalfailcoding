@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
+import { track } from "@vercel/analytics/react";
 import "../styles/ReportStyles.css";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+const handleVideoPlay = (videoTitle) => {
+    track(`Video Played: ${videoTitle}`);
+}
 
 const AdvGameProgrammingReport = () => {
     return (
@@ -215,7 +220,8 @@ if (hitColliders.Length > 0)
                         src="https://drive.google.com/file/d/1yCUvq9FkWvHm5YGhJqrg6zM5UxmRzJi4/preview"
                         width="100%" 
                         height="400"
-                        allow="autoplay">
+                        allow="autoplay"
+                        onLoad={() => handleVideoPlay("NPC Patrol and Chase System")}>
                     </iframe>
                     <figcaption><strong>Figure 1:</strong> Demonstration of the NPC patrol and chase system.</figcaption>
                     
@@ -284,7 +290,8 @@ if (hitColliders.Length > 0)
                         src="https://drive.google.com/file/d/16YZ9LV0bDgDKJOMqqPi1DX88fN1YjhLZ/preview"
                         width="100%" 
                         height="400"
-                        allow="autoplay">
+                        allow="autoplay"
+                        onLoad={() => handleVideoPlay("Animation Workflow Combined")}>
                     </iframe>
                     <figcaption><strong>Figure 6:</strong> Video demonstration of importing and setting up animations in Unity.</figcaption>
                     <br></br>
@@ -309,7 +316,8 @@ if (hitColliders.Length > 0)
                         src="https://drive.google.com/file/d/1z2WdZZNCHwPtXwOmZjmSHgs81cqRjmt3/preview" 
                         width="100%" 
                         height="400"
-                        allow="autoplay">
+                        allow="autoplay"
+                        onLoad={() => handleVideoPlay("Animation States - Idle, Walking, Running")}>
                     </iframe>
                     <figcaption><strong>Figure 7:</strong> Demonstration of animation transitions based on player input.</figcaption>
 
@@ -440,7 +448,8 @@ if (hitColliders.Length > 0)
                         src="https://drive.google.com/file/d/1RI1s4K-nA8ID8sFUzTOzgF_X47l08lTx/preview"
                         width="100%" 
                         height="400"
-                        allow="autoplay">
+                        allow="autoplay"
+                        onLoad={() => handleVideoPlay("Player Movment and Third-Person Camera")}>
                     </iframe>
                     
                     <figcaption><strong>Figure 8:</strong> Player movement and camera control.</figcaption>
@@ -589,7 +598,8 @@ if (hitColliders.Length > 0)
                         src="https://drive.google.com/file/d/1iT9Shro3t9b0X3tuzHSE7K_XLYBPikvE/preview"
                         width="100%" 
                         height="400"
-                        allow="autoplay">
+                        allow="autoplay"
+                        onLoad={() => handleVideoPlay("Light and Shadow Detection - One Raycast")}>
                     </iframe>
                     <figcaption><strong>Figure 9:</strong> Demonstration of the player transitioning between light and shadow with only the head raycast.</figcaption>
                     <br></br>
@@ -606,7 +616,8 @@ if (hitColliders.Length > 0)
                         src="https://drive.google.com/file/d/1oAStUuTHTutYdOto19TJTy0istHX4XO-/preview" 
                         width="100%" 
                         height="400"
-                        allow="autoplay">
+                        allow="autoplay"
+                        onLoad={() => handleVideoPlay("Light and Shadow Detection - Two Raycasts")}>
                     </iframe>
                     <figcaption><strong>Figure 10:</strong> Demonstration of the player transitioning between light and shadow with both head and feet raycast. This ensures the entire model is in darkness before changing the model.</figcaption>
                     <br></br>
@@ -620,7 +631,8 @@ if (hitColliders.Length > 0)
                         src="https://drive.google.com/file/d/1pOvKQzY-cwK7UFvlm8GeEMIi_4pkyDsQ/preview" 
                         width="100%" 
                         height="400"
-                        allow="autoplay">
+                        allow="autoplay"
+                        onLoad={() => handleVideoPlay("Proximity Light Detection")}>
                     </iframe>
                     <figcaption><strong>Figure 11:</strong> Player interacting with proximity light sources in the environment.</figcaption>
                     
@@ -730,7 +742,8 @@ if (hitColliders.Length > 0)
                         src="https://drive.google.com/file/d/1-HBnwb0kjhCwfRTEx4dBXHFnyo303Gz-/preview" 
                         width="100%" 
                         height="400"
-                        allow="autoplay">
+                        allow="autoplay"
+                        onLoad={() => handleVideoPlay("Teleport Mechanic and Particle Effects")}>
                     </iframe>
                     <figcaption><strong>Figure 12:</strong> Demonstration of the teleportation system.</figcaption>
 
