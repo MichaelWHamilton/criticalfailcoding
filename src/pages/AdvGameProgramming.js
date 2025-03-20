@@ -366,8 +366,8 @@ if (hitColliders.Length > 0)
                     </SyntaxHighlighter>
 
                     <p>
-                        Movement is calculated relative to the <strong>camera’s position</strong>, ensuring that movement always aligns with the player’s view.  
-                        The character rotates smoothly towards the movement direction using <strong>Quaternion Slerp</strong> for natural transitions.
+                        Movement is calculated relative to the <strong>camera’s position</strong>, ensuring that movement always aligns with the camera’s view.  
+                        The character will rotate smoothly towards the movement direction using <strong>Quaternion Slerp</strong> for natural transitions.
                     </p>
 
                     <SyntaxHighlighter language="csharp" style={dracula}>
@@ -379,7 +379,7 @@ if (hitColliders.Length > 0)
                     </SyntaxHighlighter>
 
                     <p>
-                        The movement is applied in <strong>FixedUpdate</strong> to maintain consistent physics-based motion.  
+                        When the character moves I used <strong>FixedUpdate</strong> to maintain consistent physics-based motion.  
                         The <code>MovePosition</code> method ensures smooth movement without directly modifying the transform.
                     </p>
 
@@ -461,11 +461,13 @@ if (hitColliders.Length > 0)
 
                     <p>
                         The system works by using <strong>raycasting</strong> to determine if the player is exposed to light.  
-                        Empty game objects are placed at the player's <strong>head and feet</strong>,  
+                        Empty game objects are placed at the player's head and feet,  
                         and each of these points casts a ray toward the <strong>directional light source</strong>.  
-                        If a ray does not reach the light due to an obstruction, the player is in darkness.  
+                        If a ray does not reach the light due to an obstruction, such as the rays hitting a wall in between the player and the light source,
+                         the player is in darkness.  
                         If one of the rays reaches the light, then the player is considered exposed.
                     </p>
+                   
 
                     <p>
                         To handle <strong>non-directional lights</strong> (such as lamps and torches),  
@@ -576,12 +578,11 @@ if (hitColliders.Length > 0)
     }
 }`}
                     </SyntaxHighlighter>
-
+                    <br/>
                     <p>
-                        The following videos showcase how the player transitions between <strong>light and shadow</strong>.  
-                        The first video demonstrates the basic shadow effect with <strong>only one ray</strong>,  
-                        while the second video shows how the system should respond with <strong>two rays</strong>, one at the top and bottom of the player model. 
-                        The last video shows how this system works with lights in proximity in the environment.
+                        One issue I ran into with this system is that intially, I was only checking with rays from the top of the player model. 
+                        This became an issue. There were situations where half the player model was in light, but still triggered the script for the model to turn dark. 
+                        See the figure 9 below for a demonstration.
                     </p>
 
                     <iframe 
@@ -593,6 +594,14 @@ if (hitColliders.Length > 0)
                     <figcaption><strong>Figure 9:</strong> Demonstration of the player transitioning between light and shadow with only the head raycast.</figcaption>
                     <br></br>
 
+
+                    <p>
+                        The next video demonstrates how the basic shadow effect with <strong>two rays</strong> being cast from the player model should operate. 
+                        This I think is the best approach I could come up with, and I think it works well.
+                    </p>
+
+                    
+
                     <iframe 
                         src="https://drive.google.com/file/d/1oAStUuTHTutYdOto19TJTy0istHX4XO-/preview" 
                         width="100%" 
@@ -601,6 +610,11 @@ if (hitColliders.Length > 0)
                     </iframe>
                     <figcaption><strong>Figure 10:</strong> Demonstration of the player transitioning between light and shadow with both head and feet raycast. This ensures the entire model is in darkness before changing the model.</figcaption>
                     <br></br>
+
+                    <p>
+                        Lastly, this video demonstrates the detection for lights in proximity of the player. Even if the player isn't exposed to the scene directional light 
+                        there needs to be detections for lights in proximity such as torches.
+                    </p>
 
                     <iframe 
                         src="https://drive.google.com/file/d/1pOvKQzY-cwK7UFvlm8GeEMIi_4pkyDsQ/preview" 
