@@ -65,7 +65,7 @@ const AdvGameProgrammingReport = () => {
                     <li><strong>Game Engine:</strong> Unity</li>
                     <li><strong>3D Modeling & Animation:</strong> Mixamo, potentially Blender</li>
                     <li><strong>UI Components:</strong>GIMP 3</li>
-                    <li><strong>AI Integration for Enemies:</strong> Unity ML-Agents (if applicable)</li>
+                    <li><strong>AI Integration for Enemies:</strong> Unity ML-Agents</li>
                 </ul>
             </section>
 
