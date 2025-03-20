@@ -216,13 +216,15 @@ if (hitColliders.Length > 0)
 }`}
                     </SyntaxHighlighter>
                     <br/>
-                    <iframe 
-                        src="https://drive.google.com/file/d/1yCUvq9FkWvHm5YGhJqrg6zM5UxmRzJi4/preview"
-                        width="100%" 
-                        height="400"
-                        allow="autoplay"
-                        onLoad={() => handleVideoPlay("NPC Patrol and Chase System")}>
-                    </iframe>
+                    
+                    <div onClick={()=>handleVideoPlay("NPC Patrol and Chase System")}>
+                        <iframe 
+                            src="https://drive.google.com/file/d/1yCUvq9FkWvHm5YGhJqrg6zM5UxmRzJi4/preview"
+                            width="100%" 
+                            height="400"
+                            allow="autoplay">
+                        </iframe>
+                    </div>
                     <figcaption><strong>Figure 1:</strong> Demonstration of the NPC patrol and chase system.</figcaption>
                     
 
