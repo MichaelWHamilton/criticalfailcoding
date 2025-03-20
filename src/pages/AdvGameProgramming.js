@@ -87,7 +87,24 @@ const AdvGameProgrammingReport = () => {
 
             {/* Current Implementations */}
             <section>
-                <h2>Summary of Implementations</h2>
+            <h2>Summary of Implementations</h2>
+
+            <p>
+                My primary focus so far has been on implementing the core gameplay mechanics  
+                to ensure a cohesive and functional game. Instead of building out a full world first,  
+                I prioritized developing the essential systems that will define the player experience.  
+                Now that these mechanics are in place, though still needing refinement, I plan to shift my focus  
+                towards integrating them into a playable world that brings the game to life.
+            </p>
+
+            <p>
+                Moving forward, my goal is to merge these mechanics into a structured demo level,  
+                ensuring they work together seamlessly. This next phase will involve refining mechanics,  
+                optimizing interactions between systems, and expanding the game world to provide  
+                a compelling environment for the player to explore.
+            </p>
+
+            <h3>Current Implementations</h3>
                 <p>
                     Character animations were integrated using <strong>Mixamo</strong>. 
                 </p>
@@ -770,8 +787,9 @@ if (hitColliders.Length > 0)
             <section>
                 <h2>Conclusion</h2>
                 <p>
-                    The development of *The Curse of Erephos* focuses on blending **stealth gameplay, supernatural abilities, and moral dilemmas** into an engaging experience.
-                    Future development will expand teleportation and integrate disguise mechanics, and expand the game’s lore to create a truly immersive world.
+                    The development of <strong>The Curse of Erephos</strong> focuses on blending stealth gameplay, supernatural abilities, and moral dilemmas into an engaging experience.
+                    Future development will expand current mechanics, and focus on expanding and building the world that the player will interact with.
+
                 </p>
             </section>
 
