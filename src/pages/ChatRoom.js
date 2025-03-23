@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import "../styles/ChatRoom.css";
+import WelcomeScreen from "./WelcomeScreen";
 
 const socket = io("https://chatroom-backend-qv2y.onrender.com");
 
@@ -26,6 +27,13 @@ const readableColors = [
     const messagesRef = useRef(null);
     const userColors = useRef({});
     const [darkMode, setDarkMode] = useState(false);
+    const [hasJoined, setHasJoined] = useState(false);
+
+
+    const handleJoin = (customName) => {
+      socket.emit("request_username", { custom: customName });
+      setHasJoined(true);
+    };
 
     const fetchSuggestions = async (prefix) => {
         const res = await fetch(`https://api.datamuse.com/words?sp=${prefix}*&max=10`);
@@ -91,6 +99,8 @@ const readableColors = [
           messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
         }
     }, [messages]);
+
+    if (!hasJoined) return <WelcomeScreen onJoin={handleJoin} />;
 
     return (
         <div className={`chatroom ${darkMode ? "dark-mode" : "light-mode"}`}>
