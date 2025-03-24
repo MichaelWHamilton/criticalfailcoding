@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import React from "react";
+import ProjectCarousel from "../components/ProjectCarousel";
 import "../styles/Home.css";
+
 export default function Home() {
     return (
         <div className="home-container">
@@ -51,6 +53,7 @@ export default function Home() {
             <section className="projects">
                 <h2>My Projects</h2>
                 <p>Project showcase coming soon. Stay tuned!</p>
+                <ProjectCarousel/>
             </section>
         </div>
     );
