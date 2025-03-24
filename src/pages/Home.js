@@ -52,7 +52,6 @@ export default function Home() {
             {/* Projects Placeholder */}
             <section className="projects">
                 <h2>My Projects</h2>
-                <p>Project showcase coming soon. Stay tuned!</p>
                 <ProjectCarousel/>
             </section>
         </div>
