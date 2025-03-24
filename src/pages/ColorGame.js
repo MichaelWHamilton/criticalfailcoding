@@ -6,7 +6,10 @@ export default function ColorGame() {
   const [boxCount, setBoxCount] = useState(3);
   const [colors, setColors] = useState([]);
   const [answer, setAnswer] = useState('');
-  const [congratsMessage, setCongratsMessage] = useState('Which Color is This?');
+  const DEFAULT_MESSAGE = 'Which Color is This?';
+  const [congratsMessage, setCongratsMessage] = useState(DEFAULT_MESSAGE);
+  
+  
 
   useEffect(() => {
     generateColors(boxCount);
@@ -24,6 +27,7 @@ export default function ColorGame() {
     setColors(newColors);
     const correctAnswer = newColors[Math.floor(Math.random() * count)];
     setAnswer(correctAnswer);
+    setCongratsMessage(DEFAULT_MESSAGE);
   };
 
   const handleBoxClick = (color) => {
