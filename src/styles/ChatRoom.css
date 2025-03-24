@@ -141,4 +141,15 @@
   .autocomplete-suggestions div:hover {
     background-color: #f0f0f0;
   }
+
+  /* Message text style for light mode */
+.light-mode .message-text {
+    color: #333;
+  }
+  
+  /* Message text style for dark mode */
+  .dark-mode .message-text {
+    color: #ddd;
+  }
+  
   

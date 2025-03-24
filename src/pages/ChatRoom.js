@@ -83,13 +83,16 @@ const socket = io("https://chatroom-backend-qv2y.onrender.com");
 
     useEffect(() => {
         socket.on("connect", () => console.log("Connected to server"));
-        socket.on("set_username", (data) => setUsername(data.username));
+        socket.on("set_username", (data) => {
+          setUsername(data.username);
+          userColors.current[data.username] = {
+            usernameColor: data.color
+          }
+        });
         socket.on("message", (data) => {
           if (!userColors.current[data.username]) {
             userColors.current[data.username] = {
-              usernameColor: getRandomReadableColor(),
-              //messageColor: getRandomReadableColor()
-              messageColor: "#333"
+              usernameColor: data.color || "#888"
             };
           }
           setMessages((prev) => [...prev, data]);
@@ -127,7 +130,7 @@ const socket = io("https://chatroom-backend-qv2y.onrender.com");
                       </a>
                     )
                   ) : (
-                    <span className="message-text" style={{ color: msgColor }} dangerouslySetInnerHTML={{ __html: formatUsername(msg.message) }} />
+                    <span className="message-text" dangerouslySetInnerHTML={{ __html: formatUsername(msg.message) }} />
                   )}
                 </div>
               );
