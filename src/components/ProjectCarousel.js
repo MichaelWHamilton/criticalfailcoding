@@ -5,6 +5,7 @@ const projects = [
         title: "Real-Time Chatroom",
         description: "Real-time anonymous chatroom app with file sharing, built to demonstrate computer networking. Uses React and Flask + Socket.IO.",
         active: true,
+        link: "/chatroom",
         image: "images/chatroom1.png"
     },
     {
