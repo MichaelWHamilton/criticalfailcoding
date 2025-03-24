@@ -33,6 +33,22 @@
     width:100%;
 }
 
+@media (max-width: 768px) {
+    .carousel-content {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .project-image {
+      width: 100%;
+      height: auto;
+    }
+  
+    .project-details {
+      padding: 0 1rem;
+    }
+  }
+
 .project-image {
     width: 300px;
     height: 200px;
