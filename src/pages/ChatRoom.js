@@ -130,7 +130,13 @@ const ChatRoom = () => {
         </div>
         <div className="user-list">
           <h3>Online</h3>
-          
+          <ul >
+            {onlineUsers.map((user, i) => (
+              <li>
+                {user.username}
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="input-area">
           <button onClick={() => document.getElementById("fileInput").click()}>+</button>
