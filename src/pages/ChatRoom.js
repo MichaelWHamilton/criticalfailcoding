@@ -108,7 +108,7 @@ const ChatRoom = () => {
   
         <div id="messages" className="messages" ref={messagesRef}>
           {messages.map((msg, index) => {
-            const userColor = userColors.current[msg.username]?.usernameColor;
+            const userColor = msg.color || "#888";
             const msgColor = userColors.current[msg.username]?.messageColor;
             return (
               <div key={index} className="message-bubble">
