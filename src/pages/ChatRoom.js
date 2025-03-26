@@ -19,7 +19,7 @@ const ChatRoom = () => {
   const userColors = useRef({});
   const [darkMode, setDarkMode] = useState(false);
   const [hasJoined, setHasJoined] = useState(false);
-
+  const [onlineUsers, setOnlineUsers] = useState([]);
 
   const handleJoin = (customName) => {
     socket.emit("request_username", { custom: customName });
@@ -86,6 +86,9 @@ const ChatRoom = () => {
         }
         setMessages((prev) => [...prev, data]);
       });
+      socket.on("update_user_list", (users) => {
+        setOnlineUsers(users);
+      })
   }, []);
   
   useEffect(() => {
@@ -125,7 +128,16 @@ const ChatRoom = () => {
             );
           })}
         </div>
-  
+        <div className="user-list">
+          <h3>Online</h3>
+          <ul >
+            {onlineUsers.map((user, i) => (
+              <li key={i} style={{ color: userColors.current[user]?.usernameColor || "#888" }}>
+                {user === username ? `${user} (you)` : user}
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className="input-area">
           <button onClick={() => document.getElementById("fileInput").click()}>+</button>
           <input
