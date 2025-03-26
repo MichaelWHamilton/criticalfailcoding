@@ -133,7 +133,7 @@ const ChatRoom = () => {
           <ul >
             {onlineUsers.map((user, i) => (
               <li key={i} style={{ color: userColors.current[user]?.usernameColor || "#888" }}>
-                {user === username ? `${user} (you)` : user}
+                {/* {user === username ? `${user} (you)` : user} */}
               </li>
             ))}
           </ul>
