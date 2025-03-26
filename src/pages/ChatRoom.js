@@ -100,7 +100,9 @@ const ChatRoom = () => {
   if (!hasJoined) return <WelcomeScreen onJoin={handleJoin} />;
 
   return (
-      <div className={`chatroom ${darkMode ? "dark-mode" : "light-mode"}`}>
+    <div className={`chatroom ${darkMode ? "dark-mode" : "light-mode"}`}>
+      <div className="chatroom-main">
+        <div className="left-group">
         <h1>Chatroom</h1>
         <button id="toggleMode" onClick={() => setDarkMode(!darkMode)}>Toggle Dark/Light Mode</button>
   
@@ -128,64 +130,72 @@ const ChatRoom = () => {
             );
           })}
         </div>
-        <div className="user-list">
-          <h3>Online</h3>
-          <ul >
-            {onlineUsers.map((user, i) => (
-              <li>
-                {user.username}
-              </li>
-            ))}
-          </ul>
         </div>
-        <div className="input-area">
-          <button onClick={() => document.getElementById("fileInput").click()}>+</button>
-          <input
-            type="file"
-            id="fileInput"
-            accept=".txt,.jpg,.jpeg,.png,.gif,.mov,.avi,.mp4,.webm"
-            style={{ display: "none" }}
-            onChange={(e) => {
-              if (e.target.files.length > 0) {
-                setPendingFile(e.target.files[0]);
-                setInput(`[File ready to be sent: ${e.target.files[0].name}]`);
-              }
-            }}
-          />
-          <input
-            id="input"
-            type="text"
-            value={input}
-            placeholder="Type a message..."
-            autoComplete="off"
-            onChange={handleInputChange}
-            onKeyDown={(e) => {
-              if(e.key === "Enter") {
-                e.preventDefault();
-                handleSend();
-              }
-            }}
-          />
-          <button id="sendButton" onClick={handleSend}>Send</button>
-          {suggestions.length > 0 && (
-            <div id="autocomplete-box" className="autocomplete-suggestions">
-              {suggestions.map((word, i) => (
-                <div
-                  key={i}
-                  onClick={() => {
-                    const words = input.split(" ");
-                    words.pop();
-                    words.push(word);
-                    setInput(words.join(" ") + " ");
-                    setSuggestions([]);
-                  }}
-                >
-                {word}
-              </div>
-            ))}
-          </div>
-        )}
+
+        <div className="user-list">
+        <h3>Online</h3>
+        <ul >
+          {onlineUsers.map((user, i) => (
+            <li>
+              {user.username}
+            </li>
+          ))}
+        </ul>
+        </div>
+
+        
       </div>
+      
+      <div className="input-area">
+        <button onClick={() => document.getElementById("fileInput").click()}>+</button>
+        <input
+          type="file"
+          id="fileInput"
+          accept=".txt,.jpg,.jpeg,.png,.gif,.mov,.avi,.mp4,.webm"
+          style={{ display: "none" }}
+          onChange={(e) => {
+            if (e.target.files.length > 0) {
+              setPendingFile(e.target.files[0]);
+              setInput(`[File ready to be sent: ${e.target.files[0].name}]`);
+            }
+          }}
+        />
+        <input
+          id="input"
+          type="text"
+          value={input}
+          placeholder="Type a message..."
+          autoComplete="off"
+          onChange={handleInputChange}
+          onKeyDown={(e) => {
+            if(e.key === "Enter") {
+              e.preventDefault();
+              handleSend();
+            }
+          }}
+        />
+        <button id="sendButton" onClick={handleSend}>Send</button>
+        {suggestions.length > 0 && (
+          <div id="autocomplete-box" className="autocomplete-suggestions">
+            {suggestions.map((word, i) => (
+              <div
+                key={i}
+                onClick={() => {
+                  const words = input.split(" ");
+                  words.pop();
+                  words.push(word);
+                  setInput(words.join(" ") + " ");
+                  setSuggestions([]);
+                }}
+              >
+              {word}
+            </div>
+          ))}
+        </div>
+      )}
+        </div>
+      
+      
     </div>
   );
 }

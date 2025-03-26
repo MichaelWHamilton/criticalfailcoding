@@ -7,6 +7,7 @@
     
     background: linear-gradient(to bottom right, #e6f0fa, #f2f8fc);
     color: #333;
+    transition: background-color .3s ease;
   }
   
 .chatroom.dark-mode {
@@ -21,6 +22,19 @@
     font-size: 1.8rem;
 }
 
+.chatroom-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.left-group {
+    flex: 9;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
 /* Toggle button for light or dark*/
 #toggleMode {
     margin: 0 auto 1rem;
@@ -30,7 +44,7 @@
     color: white;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.3s ease;
 }
 
 #toggleMode:hover {
@@ -46,35 +60,79 @@
     flex-direction: column;
     gap: 0.75rem;
     background-color: inherit;
+    transition: background-color .3s ease;
 }
 
-.user-list{
-    background-color: red;
+/* .user-list {
     position: absolute;
-    top: 0px;
-    right: 0%;
+    top: 0;
+    right: 0;
     width: 20vw;
-    height: 91vw;
+    height: 100vh;
+    background-color: #f7f9fc;
+    color: #222;
+    border-left: 1px solid #ddd;
+    text-decoration: none;
     border-radius: 12px;
+    overflow: hidden;
     overflow-y: scroll;
+    padding: 0 0 .5rem .5rem;
+} */
+.user-list {
+    flex: 2;
+    max-width: 20vw;
+    background-color: #f7f9fc;
+    border-left: 1px solid #ddd;
+    padding: 1rem;
+    overflow-y: auto;
+    transition: background-color .3s ease;
+  }
+.chatroom.dark-mode .user-list {
+    background-color: #1b1b1b;
+    border-left: 1px solid #333;
+    color: #ccc;
+}
 
+.user-list h3 {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+}
+
+.user-list ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.user-list li {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 5px;
+    padding: .4rem .6rem;
+    margin-bottom: .4rem;
+    font-weight: 500;
+    /* transition: background-color .3s ease; */
+}
+
+.chatroom.dark-mode .user-list li {
+    background-color: rgba(255,255,255, 0.2);
 }
 
 /* Chat bubble behind messages */
 .message-bubble {
     padding: 0.75rem 1rem;
-    background-color: #ffffff;
+    background-color: rgba(255,255,255,0.85);
     border-radius: 12px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    max-width: 75%;
+    max-width: 100%;
     word-wrap: break-word;
     line-height: 1.5;
+    transition: background-color .5s ease;
 }
 
 .dark-mode .message-bubble {
-    background-color: #2a2a2a;
-    border-left: 4px solid #3a3f47;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    background-color: #282828;
+    border-left: 4px solid #555;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 .light-mode .message-bubble {
@@ -108,6 +166,8 @@
     gap: 0.5rem;
     background-color: #ececec;
     border-top: 1px solid #ccc;
+    transition: background-color .3s ease;
+    
 }
 
 .light-mode .input-area {
@@ -125,6 +185,12 @@
     border-radius: 8px;
     border: 1px solid #ccc;
     font-size: 1rem;
+}
+
+.dark-mode .input-area input[type="text"] {
+    background-color: #1f1f1f;
+    border-color: #444;
+    color: #eee;
 }
 
 .input-area button {
