@@ -52,11 +52,12 @@
     background-color: red;
     position: absolute;
     top: 0px;
-    right: 50%;
+    right: 0%;
     width: 20vw;
     height: 91vw;
     border-radius: 12px;
     overflow-y: scroll;
+
 }
 
 /* Chat bubble behind messages */

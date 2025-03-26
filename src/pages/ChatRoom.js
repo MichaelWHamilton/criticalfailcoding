@@ -6,7 +6,7 @@ import WelcomeScreen from "./WelcomeScreen";
 const socket = io("https://chatroom-backend-qv2y.onrender.com");
 
 const readableColors = ["#3498db", "#9b59b6", "#1abc9c", "#f39c12", "#e67e22", "#e74c3c", "#2ecc71", "#34495e"];
-
+const testList = [{username: "user1", color: "#333"}, {username: "user2", color: "#333"}, {username: "user3", color: "#333"}]
 const getRandomReadableColor = () => readableColors[Math.floor(Math.random() * readableColors.length)];
 
 const ChatRoom = () => {
