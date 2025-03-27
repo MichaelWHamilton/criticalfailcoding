@@ -114,9 +114,15 @@ const ChatRoom = () => {
             const userColor = msg.color || "#888";
             const msgColor = userColors.current[msg.username]?.messageColor;
             return (
+              
               <div key={index} className="message-bubble">
-                <span className="timestamp">{msg.timestamp || "timestamp didnt load"}</span>
-                <span className="username" style={{ color: userColor}}>{msg.username}: </span>
+                <div className="message-line">
+                  <span className="timestamp">{msg.timestamp}</span>
+                  <span className="username" style={{ color: userColor}}>{msg.username}: </span>
+
+                </div>
+                
+                
                 {msg.file_url ? (
                   /\.(jpg|jpeg|png|gif)$/i.test(msg.file_url) ? ( 
                     <img src={`https://chatroom-backend-qv2y.onrender.com${msg.file_url}`} alt={msg.message} className="chat-image" />
@@ -130,6 +136,7 @@ const ChatRoom = () => {
                 ) : (msg.username === "System" ? <span dangerouslySetInnerHTML={{ __html: msg.message }} /> 
                   : (<span className="message-text" dangerouslySetInnerHTML={{ __html: formatUsername(msg.message) }} />)
                 )}
+                
               </div>
             );
           })}

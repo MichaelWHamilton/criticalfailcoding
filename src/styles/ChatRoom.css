@@ -150,7 +150,6 @@
 }
 /* Username text styles */
 .username {
-    display: block;
     font-weight: bold;
     margin-bottom: 0.3rem;
 }
@@ -255,6 +254,14 @@
 }
   
 .timestamp {
-    font-weight: bold;
     color: #8a8a8a;
+    position: absolute;
+    left: 0;
+}
+
+.message-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
