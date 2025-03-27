@@ -117,11 +117,10 @@ const ChatRoom = () => {
               
               <div key={index} className="message-bubble">
                 <div className="message-line">
-                  <span className="timestamp">{msg.timestamp}</span>
+                  <span className="timestamp">[{msg.timestamp}]</span>
                   <span className="username" style={{ color: userColor}}>{msg.username}: </span>
 
                 </div>
-                
                 
                 {msg.file_url ? (
                   /\.(jpg|jpeg|png|gif)$/i.test(msg.file_url) ? ( 
