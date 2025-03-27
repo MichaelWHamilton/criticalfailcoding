@@ -126,8 +126,8 @@ const ChatRoom = () => {
                       {msg.message}
                     </a>
                   )
-                ) : (
-                  <span className="message-text" dangerouslySetInnerHTML={{ __html: formatUsername(msg.message) }} />
+                ) : (msg.username === "System" ? <span dangerouslySetInnerHTML={{ __html: msg.message }} /> 
+                  : (<span className="message-text" dangerouslySetInnerHTML={{ __html: formatUsername(msg.message) }} />)
                 )}
               </div>
             );
