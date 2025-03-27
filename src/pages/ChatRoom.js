@@ -79,7 +79,7 @@ const ChatRoom = () => {
         }
       });
       socket.on("chat_history", (history)=>{
-        setMessages((prev) => [...history, ...prev]);
+        setMessages(history);
       })
       socket.on("message", (data) => {
         if (!userColors.current[data.username]) {
