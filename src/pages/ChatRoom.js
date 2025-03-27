@@ -117,7 +117,7 @@ const ChatRoom = () => {
               <div key={index} className="message-bubble">
                 <span className="username" style={{ color: userColor}}>{msg.username}: </span>
                 {msg.file_url ? (
-                  /\.(jpg|jpeg|png|gif)$/i.test(msg.file_url) ? (
+                  /\.(jpg|jpeg|png|gif)$/i.test(msg.file_url) ? ( 
                     <img src={`https://chatroom-backend-qv2y.onrender.com${msg.file_url}`} alt={msg.message} className="chat-image" />
                   ) : /\.(mp4|mov|avi|webm)$/i.test(msg.file_url) ? (
                     <video src={`https://chatroom-backend-qv2y.onrender.com${msg.file_url}`} controls className="chat-video" />
@@ -139,7 +139,7 @@ const ChatRoom = () => {
         <h3>Online</h3>
         <ul >
           {onlineUsers.map((user, i) => (
-            <li>
+            <li key={i} style={{color: user.color}}>
               {user.username}
             </li>
           ))}
