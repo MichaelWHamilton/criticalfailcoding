@@ -125,7 +125,7 @@ const ChatRoom = () => {
                     <a href={`https://chatroom-backend-qv2y.onrender.com${msg.file_url}`} target="_blank" rel="noreferrer">
                       {msg.message}
                     </a>
-                  )
+                  ) 
                 ) : (msg.username === "System" ? <span dangerouslySetInnerHTML={{ __html: msg.message }} /> 
                   : (<span className="message-text" dangerouslySetInnerHTML={{ __html: formatUsername(msg.message) }} />)
                 )}
