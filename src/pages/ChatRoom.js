@@ -115,6 +115,7 @@ const ChatRoom = () => {
             const msgColor = userColors.current[msg.username]?.messageColor;
             return (
               <div key={index} className="message-bubble">
+                <span className="timestamp">{msg.timestamp || "timestamp didnt load"}</span>
                 <span className="username" style={{ color: userColor}}>{msg.username}: </span>
                 {msg.file_url ? (
                   /\.(jpg|jpeg|png|gif)$/i.test(msg.file_url) ? ( 

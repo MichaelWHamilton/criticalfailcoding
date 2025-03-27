@@ -105,7 +105,7 @@
 }
 
 .user-list li {
-    background-color: rgba(0,0,0,0.2);
+    background-color: #eef1f5;
     border-radius: 5px;
     padding: .4rem .6rem;
     margin-bottom: .4rem;
@@ -113,8 +113,17 @@
     /* transition: background-color .3s ease; */
 }
 
+.user-list li:hover {
+    background-color: #e2e6ea;
+    
+}
+
 .chatroom.dark-mode .user-list li {
-    background-color: rgba(255,255,255, 0.2);
+    background-color: #282828;
+}
+
+.chatroom.dark-mode .user-list li:hover {
+    background-color: #3a3f47;
 }
 
 /* Chat bubble behind messages */
@@ -245,4 +254,7 @@
     color: #ddd;
 }
   
-  
+.timestamp {
+    font-weight: bold;
+    color: #8a8a8a;
+}
