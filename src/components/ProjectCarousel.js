@@ -2,18 +2,18 @@ import React, {useState} from "react";
 import "../styles/ProjectCarousel.css";
 const projects = [
     {
-        title: "Real-Time Chatroom",
-        description: "Real-time anonymous chatroom app with file sharing, built to demonstrate computer networking. Uses React and Flask + Socket.IO.",
-        active: true,
-        link: "/chatroom",
-        image: "images/chatroom1.png"
-    },
-    {
         title: "Curse of Erephos - Unity Game",
         description: "Stealth-action game inspired by Dishonored and Aragami. The game presents moral choices for the player and unfolds in a mystical island setting where light and shadow are deeply entwined the islands history.",
         link: "/AdvGameProgramming",
         active: true,
         image: "images/curseofepheros.png"
+    },
+    {
+        title: "Real-Time Chatroom",
+        description: "Real-time anonymous chatroom app with file sharing, built to demonstrate computer networking. Uses React and Flask + Socket.IO.",
+        active: true,
+        link: "/chatroom",
+        image: "images/chatroom1.png"
     },
     {
         title: "Coming soon",
