@@ -10,6 +10,8 @@ export default function Home() {
             <header className="banner">
                 <h1>Michael Hamilton</h1>
                 <p className="tagline">Developer | Full-Stack | Networking | Game Design</p>
+                <div class="social-icons">
+                </div>
             </header>
         
             {/* Intro */}
