@@ -3,7 +3,12 @@ import io from "socket.io-client";
 import "../styles/ChatRoom.css";
 import WelcomeScreen from "./WelcomeScreen";
 
-const socket = io("https://chatroom-backend-qv2y.onrender.com");
+/**********           for testing LIVE             **********/
+//const socket = io("https://chatroom-backend-qv2y.onrender.com");
+
+/**********           for testing LOCAL            **********/
+const socket = io("http://localhost:5000");
+
 
 const readableColors = ["#3498db", "#9b59b6", "#1abc9c", "#f39c12", "#e67e22", "#e74c3c", "#2ecc71", "#34495e"];
 const testList = [{username: "user1", color: "#333"}, {username: "user2", color: "#333"}, {username: "user3", color: "#333"}]
@@ -71,27 +76,33 @@ const ChatRoom = () => {
   };
 
   useEffect(() => {
-      socket.on("connect", () => console.log("Connected to server"));
-      socket.on("set_username", (data) => {
-        setUsername(data.username);
+    const handleMessage = (data) => {
+      if (!userColors.current[data.username]) {
         userColors.current[data.username] = {
-          usernameColor: data.color
-        }
-      });
-      socket.on("chat_history", (history)=>{
-        setMessages(history);
-      })
-      socket.on("message", (data) => {
-        if (!userColors.current[data.username]) {
-          userColors.current[data.username] = {
-            usernameColor: data.color || "#888"
-          };
-        }
-        setMessages((prev) => [...prev, data]);
-      });
-      socket.on("update_user_list", (users) => {
-        setOnlineUsers(users);
-      })
+          usernameColor: data.color || "#888",
+        };
+      }
+      setMessages((prev) => [...prev, data]);
+    };
+
+
+    socket.on("connect", () => console.log("Connected to server"));
+    socket.on("set_username", (data) => {
+      setUsername(data.username);
+      userColors.current[data.username] = {
+        usernameColor: data.color
+      }
+    });
+    socket.on("chat_history", (history)=>{
+      setMessages(history);
+    })
+    socket.on("message", handleMessage);
+    socket.on("update_user_list", (users) => {
+      setOnlineUsers(users);
+    });
+    return () => {
+      socket.off("message", handleMessage);
+    };
   }, []);
   
   useEffect(() => {
@@ -99,6 +110,20 @@ const ChatRoom = () => {
         messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
       }
   }, [messages]);
+
+  // Add this useEffect to detect and style "System" spans
+  useEffect(() => {
+      // Select all spans inside .message-bubble
+      const spans = document.querySelectorAll('.message-bubble span');
+
+      // Loop through each span and check its text content
+      spans.forEach((span) => {
+          if (span.textContent.trim() === 'System:') {
+              // Add a class to center the span
+              span.classList.add('centered-system');
+          }
+      });
+}, [messages]);
 
   if (!hasJoined) return <WelcomeScreen onJoin={handleJoin} />;
 
@@ -119,7 +144,6 @@ const ChatRoom = () => {
                 <div className="message-line">
                   <span className="timestamp">[{msg.timestamp}]</span>
                   <span className="username" style={{ color: userColor}}>{msg.username}: </span>
-
                 </div>
                 
                 {msg.file_url ? (
