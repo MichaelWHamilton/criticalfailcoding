@@ -9,11 +9,11 @@ import WelcomeScreen from "./WelcomeScreen";
 
 // Comment out the LIVE socket connection and uncomment the LOCAL one for local testing
 /**********           for testing LIVE             **********/
-const socket = io("https://chatroom-backend-qv2y.onrender.com");
+// const socket = io("https://chatroom-backend-qv2y.onrender.com");
 
 // Comment out the LOCAL socket connection and uncomment the LIVE one for production or LIVE testing
 /**********           for testing LOCAL            **********/
-// const socket = io("http://localhost:5000");
+const socket = io("http://localhost:5000");
 
 const usernameColorMap = {
     "#3498db": { light: "#3498db", dark: "#2E2E2E" },
@@ -64,29 +64,29 @@ const ChatRoom = () => {
 
   // Function to format messages
   const formatMessage = (msg) => {
-    // Fallback for validUsernames if it's undefined
-    const validUsernames = msg.validUsernames || [];
-    console.log("Formatting message with validUsernames:", validUsernames); // Debugging log
-
-    // Work with a copy of the message content to avoid modifying the original object
     let messageContent = msg.message || "";
 
-    // Highlight file names (e.g., hello.txt, image.jpg)
-    messageContent = messageContent.replace(/\b\w+\.(txt|jpg|jpeg|png|gif|mp4|mov|avi|webm|pdf|docx|xlsx)\b/gi, (match) => {
-        return `<span class="highlight-file">${match}</span>`;
-    });
+    // Highlight valid filenames (e.g., file.png, image.jpg)
+    messageContent = messageContent.replace(
+        /\b\w+[-\w]*\.(txt|jpg|jpeg|png|gif|mp4|mov|avi|webm|pdf|docx|xlsx)\b/gi,
+        (match) => `<span class="highlight-file">${match}</span>`
+    );
 
-    // Convert links to clickable hyperlinks
-    messageContent = messageContent.replace(/(?<!<\/?span[^>]*>)\b((https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/[^\s]*)?)\b/gi, (match) => {
-        const hasProtocol = match.startsWith("http://") || match.startsWith("https://");
-        const url = hasProtocol ? match : `https://${match}`;
-        return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="highlight-link">${match}</a>`;
-    });
+    // Highlight valid links (e.g., http://example.com, www.example.com, example.com)
+    messageContent = messageContent.replace(
+        /\b((https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?)\b/gi,
+        (match) => {
+            // Ensure the match is not already highlighted as a file
+            if (!/\b\w+[-\w]*\.(txt|jpg|jpeg|png|gif|mp4|mov|avi|webm|pdf|docx|xlsx)\b/gi.test(match)) {
+                return `<span class="highlight-link">${match}</span>`;
+            }
+            return match; // Return the original text if it's a file
+        }
+    );
 
-    // Highlight mentioned usernames (e.g., @username or @User-1234 or @User!@#$%^&*())
+    // Highlight mentioned usernames (e.g., @username)
     messageContent = messageContent.replace(/@([^\s]+)/g, (match, username) => {
-        if (validUsernames.includes(username)) {
-            console.log(`Highlighting mention: ${username}`); // Debugging log
+        if (msg.validUsernames?.includes(username)) {
             return `<span class="highlight-mention">@${username}</span>`;
         }
         return match;
@@ -102,14 +102,14 @@ const ChatRoom = () => {
         return `<span class="highlight-exclamation">${text}</span>`;
     });
 
-    // Highlight text surrounded by question marks (?)
-    messageContent = messageContent.replace(/\?(.*?)\?/g, (match, text) => {
-        return `<span class="highlight-question">${text}</span>`;
+    // Highlight text surrounded by dollar signs ($)
+    messageContent = messageContent.replace(/\$(.*?)\$/g, (match, text) => {
+        return `<span class="highlight-dollar">${text}</span>`;
     });
 
-    // Highlight text surrounded by periods (.)
-    messageContent = messageContent.replace(/\.(.*?)\./g, (match, text) => {
-        return `<span class="highlight-period">${text}</span>`;
+    // Highlight text surrounded by tildes (~)
+    messageContent = messageContent.replace(/~(.*?)~/g, (match, text) => {
+        return `<span class="highlight-tilde">${text}</span>`;
     });
 
     return messageContent;
