@@ -9,11 +9,11 @@ import WelcomeScreen from "./WelcomeScreen";
 
 // Comment out the LIVE socket connection and uncomment the LOCAL one for local testing
 /**********           for testing LIVE             **********/
-// const socket = io("https://chatroom-backend-qv2y.onrender.com");
+const socket = io("https://chatroom-backend-qv2y.onrender.com");
 
 // Comment out the LOCAL socket connection and uncomment the LIVE one for production or LIVE testing
 /**********           for testing LOCAL            **********/
-const socket = io("http://localhost:5000");
+// const socket = io("http://localhost:5000");
 
 const usernameColorMap = {
     "#3498db": { light: "#3498db", dark: "#2E2E2E" },
