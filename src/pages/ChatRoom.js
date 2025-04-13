@@ -9,11 +9,11 @@ import WelcomeScreen from "./WelcomeScreen";
 
 // Comment out the LIVE socket connection and uncomment the LOCAL one for local testing
 /**********           for testing LIVE             **********/
-const socket = io("https://chatroom-backend-qv2y.onrender.com");
+// const socket = io("https://chatroom-backend-qv2y.onrender.com");
 
 // Comment out the LOCAL socket connection and uncomment the LIVE one for production or LIVE testing
 /**********           for testing LOCAL            **********/
-// const socket = io("http://localhost:5000");
+const socket = io("http://localhost:5000");
 
 const usernameColorMap = {
     "#3498db": { light: "#3498db", dark: "#2E2E2E" },
@@ -135,45 +135,45 @@ const ChatRoom = () => {
         formData.append("username", username);
 
         // ********* FOR LOCAL TESTING *********
-        // fetch("http://localhost:5000/upload", {
-        //     method: "POST",
-        //     body: formData,
-        // })
-        //     .then((res) => {
-        //         if (res.status === 429) {
-        //             throw new Error("Too many requests. Please wait before trying again.");
-        //         }
-        //         return res.json();
-        //     })
-        //     .then((data) => {
-        //         if (data.file_url) {
-        //             console.log("File uploaded successfully:", data.file_url);
-        //         } else {
-        //             console.error("File upload failed:", data.error);
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.error("Error uploading file:", err);
-        //         alert(err.message); // Notify the user about the rate limit
-        //     });
-
-        // ********* FOR LIVE TESTING *********
-          fetch("https://chatroom-backend-qv2y.onrender.com/upload", {
+        fetch("http://localhost:5000/upload", {
             method: "POST",
             body: formData,
+        })
+            .then((res) => {
+                if (res.status === 429) {
+                    throw new Error("Too many requests. Please wait before trying again.");
+                }
+                return res.json();
             })
-            .then((res) => res.json())
             .then((data) => {
-            if (data.file_url) {
-            console.log("File uploaded successfully:", data.file_url);
-            } else {
-            console.error("File upload failed:", data.error);
-            }
+                if (data.file_url) {
+                    console.log("File uploaded successfully:", data.file_url);
+                } else {
+                    console.error("File upload failed:", data.error);
+                }
             })
             .catch((err) => {
-            console.error("Error uploading file:", err);
-            alert(err.message); // Notify the user about the rate limit
-          });
+                console.error("Error uploading file:", err);
+                alert(err.message); // Notify the user about the rate limit
+            });
+
+        // ********* FOR LIVE TESTING *********
+          // fetch("https://chatroom-backend-qv2y.onrender.com/upload", {
+          //   method: "POST",
+          //   body: formData,
+          //   })
+          //   .then((res) => res.json())
+          //   .then((data) => {
+          //   if (data.file_url) {
+          //   console.log("File uploaded successfully:", data.file_url);
+          //   } else {
+          //   console.error("File upload failed:", data.error);
+          //   }
+          //   })
+          //   .catch((err) => {
+          //   console.error("Error uploading file:", err);
+          //   alert(err.message); // Notify the user about the rate limit
+          // });
 
         setPendingFile(null);
         setInput("");
@@ -413,54 +413,68 @@ const ChatRoom = () => {
             }`}
         >
             <div className="message-line">
-                {msg.username !== "System" && (
+                {msg.username === "System" ? (
+                    <span
+                        className="message-text"
+                        style={{ textAlign: "left" }} // Align text to the left
+                        dangerouslySetInnerHTML={{
+                            __html: msg.message.replace(
+                                /(User-\d+)/g, // Match usernames like "User-####"
+                                (match) =>
+                                    `<span style="color: ${userColor}; font-weight: bold;">${match}</span>`
+                            ),
+                        }}
+                    />
+                ) : (
                     <>
                         <span className="timestamp">[{msg.timestamp}]</span>
                         <span
                             className="username"
-                            style={{ color: userColor }} // Use the dynamically determined color
+                            style={{ color: userColor }} // Apply the dynamically determined color
                         >
                             {msg.username}:
                         </span>
                     </>
                 )}
             </div>
-        {msg.file_url ? (
-  <a href={msg.file_url} target="_blank" rel="noopener noreferrer">
-    {/\.(jpg|jpeg|png|gif|webp|bmp|svg|tiff|ico)$/i.test(msg.file_url) ? (
-      <img
-        src={msg.file_url}
-        alt={msg.message}
-        className="chat-image"
-      />
-    ) : /\.(mp4|webm|ogg|ogv|mov|avi|mkv)$/i.test(msg.file_url) ? (
-      <video
-        src={msg.file_url}
-        controls
-        className="chat-video"
-      />
-    ) : /\.(mp3|wav|oga|flac|m4a|aac)$/i.test(msg.file_url) ? (
-      <audio
-        src={msg.file_url}
-        controls
-        className="chat-audio"
-      />
-    ) : /\.(pdf|doc|docx|xls|xlsx|ppt|pptx|txt|rtf|csv|md|epub|odt)$/i.test(msg.file_url) ? (
-      <span className="highlight-file">📄 {msg.message}</span>
-    ) : /\.(zip|rar|7z|tar|gz)$/i.test(msg.file_url) ? (
-      <span className="highlight-file">🗜️ {msg.message}</span>
-    ) : /\.(html|css|js|json|xml|py|java|c|cpp|h)$/i.test(msg.file_url) ? (
-      <span className="highlight-file">🧱 {msg.message}</span>
-    ) : (
-      <span className="highlight-file">{msg.message}</span>
-    )}
-  </a>
-) : (
-  <span
-    className="message-text"
-    dangerouslySetInnerHTML={{ __html: formatMessage(msg) }}
-  />
-)}
+            {msg.file_url ? (
+                <a href={msg.file_url} target="_blank" rel="noopener noreferrer">
+                    {/\.(jpg|jpeg|png|gif|webp|bmp|svg|tiff|ico)$/i.test(msg.file_url) ? (
+                        <img
+                            src={msg.file_url}
+                            alt={msg.message}
+                            className="chat-image"
+                        />
+                    ) : /\.(mp4|webm|ogg|ogv|mov|avi|mkv)$/i.test(msg.file_url) ? (
+                        <video
+                            src={msg.file_url}
+                            controls
+                            className="chat-video"
+                        />
+                    ) : /\.(mp3|wav|oga|flac|m4a|aac)$/i.test(msg.file_url) ? (
+                        <audio
+                            src={msg.file_url}
+                            controls
+                            className="chat-audio"
+                        />
+                    ) : /\.(pdf|doc|docx|xls|xlsx|ppt|pptx|txt|rtf|csv|md|epub|odt)$/i.test(msg.file_url) ? (
+                        <span className="highlight-file">📄 {msg.message}</span>
+                    ) : /\.(zip|rar|7z|tar|gz)$/i.test(msg.file_url) ? (
+                        <span className="highlight-file">🗜️ {msg.message}</span>
+                    ) : /\.(html|css|js|json|xml|py|java|c|cpp|h)$/i.test(msg.file_url) ? (
+                        <span className="highlight-file">🧱 {msg.message}</span>
+                    ) : (
+                        <span className="highlight-file">{msg.message}</span>
+                    )}
+                </a>
+            ) : (
+                msg.username !== "System" && (
+                    <span
+                        className="message-text"
+                        dangerouslySetInnerHTML={{ __html: formatMessage(msg) }}
+                    />
+                )
+            )}
         </div>
     );
 })}
