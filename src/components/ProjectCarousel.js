@@ -9,11 +9,11 @@ const projects = [
         image: "images/curseofepheros.png"
     },
     {
-        title: "Real-Time Chatroom",
-        description: "Real-time anonymous chatroom app with file sharing, built to demonstrate computer networking. Uses React and Flask + Socket.IO.",
-        active: true,
-        link: "/chatroom",
-        image: "images/chatroom1.png"
+        title: "Coming Soon",
+        description: "Coming Soon",
+        link: "#",
+        active: false,
+        image: "images/comingsoon1.jpeg"
     },
     {
         title: "Coming soon",
