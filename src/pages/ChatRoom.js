@@ -167,45 +167,45 @@ const ChatRoom = () => {
             formData.append("username", username);
 
             // ********* FOR LOCAL TESTING *********
-            fetch("http://localhost:5000/upload", {
-                method: "POST",
-                body: formData,
-            })
-                .then((res) => {
-                    if (res.status === 429) {
-                        throw new Error("Too many requests. Please wait before trying again.");
-                    }
-                    return res.json();
-                })
-                .then((data) => {
-                    if (data.file_url) {
-                        console.log("File uploaded successfully:", data.file_url);
-                    } else {
-                        console.error("File upload failed:", data.error);
-                    }
-                })
-                .catch((err) => {
-                    console.error("Error uploading file:", err);
-                    alert(err.message); // Notify the user about the rate limit
-                });
+            // fetch("http://localhost:5000/upload", {
+            //     method: "POST",
+            //     body: formData,
+            // })
+            //     .then((res) => {
+            //         if (res.status === 429) {
+            //             throw new Error("Too many requests. Please wait before trying again.");
+            //         }
+            //         return res.json();
+            //     })
+            //     .then((data) => {
+            //         if (data.file_url) {
+            //             console.log("File uploaded successfully:", data.file_url);
+            //         } else {
+            //             console.error("File upload failed:", data.error);
+            //         }
+            //     })
+            //     .catch((err) => {
+            //         console.error("Error uploading file:", err);
+            //         alert(err.message); // Notify the user about the rate limit
+            //     });
 
             // ********* FOR LIVE TESTING *********
-                // fetch("https://chatroom-backend-qv2y.onrender.com/upload", {
-                //   method: "POST",
-                //   body: formData,
-                //   })
-                //   .then((res) => res.json())
-                //   .then((data) => {
-                //   if (data.file_url) {
-                //   console.log("File uploaded successfully:", data.file_url);
-                //   } else {
-                //   console.error("File upload failed:", data.error);
-                //   }
-                //   })
-                //   .catch((err) => {
-                //   console.error("Error uploading file:", err);
-                //   alert(err.message); // Notify the user about the rate limit
-                // });
+                fetch("https://chatroom-backend-qv2y.onrender.com/upload", {
+                  method: "POST",
+                  body: formData,
+                  })
+                  .then((res) => res.json())
+                  .then((data) => {
+                  if (data.file_url) {
+                  console.log("File uploaded successfully:", data.file_url);
+                  } else {
+                  console.error("File upload failed:", data.error);
+                  }
+                  })
+                  .catch((err) => {
+                  console.error("Error uploading file:", err);
+                  alert(err.message); // Notify the user about the rate limit
+                });
 
             setPendingFile(null);
             setInput("");
