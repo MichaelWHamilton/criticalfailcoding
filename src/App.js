@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<ChatRoom/>} />
         <Route path="/color-game" element={<ColorGame/>} />
         <Route path="/ColorGameV2" element={<ColorGameV2/>} />
         <Route path="/AdvGameProgramming" element={<AdvGameProgramming/>} />
