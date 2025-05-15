@@ -21,7 +21,8 @@ const AdvGameProgrammingFinal = () => {
                 <strong>The Curse of Erephos</strong> is a stealth-action game inspired by <em>Dishonored</em> and <em>Aragami</em>.  
                 Like <em>Dishonored</em>, the game presents players with moral choices—whether to take a lethal approach  
                 or rely on stealth to outmaneuver enemies. However, this story unfolds in a mystical island setting  
-                where <strong>light and shadow</strong> are deeply entwined in history and power.
+                where <strong>light and shadow</strong> are deeply entwined in history and power. The gameplay scene involvs a player esacping prison, and reaching the
+                mainland, realizing there is much more to come. 
             </p>
 
             <p>
@@ -63,9 +64,8 @@ const AdvGameProgrammingFinal = () => {
                 <h2>Tools Used</h2>
                 <ul style={{textAlign: "left"}}>
                     <li><strong>Game Engine:</strong> Unity</li>
-                    <li><strong>3D Modeling & Animation:</strong> Mixamo, potentially Blender</li>
+                    <li><strong>3D Modeling & Animation:</strong> Mixamo, Blender</li>
                     <li><strong>UI Components:</strong>GIMP 3</li>
-                    <li><strong>AI Integration for Enemies:</strong> Unity ML-Agents</li>
                 </ul>
             </section>
 
@@ -77,9 +77,9 @@ const AdvGameProgrammingFinal = () => {
                 <ul style={{textAlign: "left"}}>
                     <li><strong>Character Arc(s):</strong> The protagonist evolves based on choices—either embracing vengeance or seeking redemption.</li>
                     <li><strong>Game World:</strong> The mystical island of Erephos, featuring ancient ruins, Solmara settlements, and hidden sanctuaries.</li>
-                    <li><strong>Stealth & Abilities:</strong> Players navigate patrols, avoid detection, and use shadow-based powers such as teleportation and disguise.</li>
+                    <li><strong>Stealth & Abilities:</strong> Players navigate patrols, avoid detection, and use shadow-based powers such as teleportation to get past enemies.</li>
                     <li><strong>Task Modality:</strong> Open-ended objectives allow missions to be completed in multiple ways, from confrontation to pure stealth.</li>
-                    <li><strong>Level Design:</strong> Semi-open world with interconnected areas encouraging exploration and lore discovery.</li>
+                    <li><strong>Level Design:</strong> Linear prison break leading into a semi-open world with interconnected areas encouraging exploration and lore discovery.</li>
                 </ul>
             </section>
 
@@ -87,38 +87,61 @@ const AdvGameProgrammingFinal = () => {
 
             {/* Current Implementations */}
             <section>
-            <h2>Summary of Implementations</h2>
+                <h2>Summary of Implementations</h2>
+                <p> 
+                    Since the midterm, I’ve significantly expanded and refined core gameplay systems, integrating them into a 
+                    playable section that showcases the tone, mechanics, and vision of the game. While the broader world is still in progress, the 
+                    current implementation focuses on delivering a tightly scoped, interactive demo set within the prison bay environment. 
+                </p> 
+                <p> 
+                    Key systems such as AI behavior, player movement, stealth mechanics, and visual/audio feedback have been refined for cohesion and responsiveness. 
+                    The demo level now offers a contained narrative and gameplay experience, featuring two NPC types, 
+                    multiple player abilities, stealth-based progression, and interactive objects. 
+                </p> 
+                <p> 
+                    Moving forward, the plan is to polish existing systems, improve level design and pacing, and prepare the game 
+                    for public showcasing.
+                </p>
 
-            <p>
-                My primary focus so far has been on implementing the core gameplay mechanics  
-                to ensure a cohesive and functional game. Instead of building out a full world first,  
-                I prioritized developing the essential systems that will define the player experience.  
-                Now that these mechanics are in place, though still needing refinement, I plan to shift my focus  
-                towards integrating them into a playable world that brings the game to life.
-            </p>
-
-            <p>
-                Moving forward, my goal is to merge these mechanics into a structured demo level,  
-                ensuring they work together seamlessly. This next phase will involve refining mechanics,  
-                optimizing interactions between systems, and expanding the game world to provide  
-                a compelling environment for the player to explore.
-            </p>
-
-            <h3>Current Implementations</h3>
-                <p>
-                    Character animations were integrated using <strong>Mixamo</strong>. 
-                </p>
-                <p>
-                    <strong>NPC AI patrols</strong> function using NavMesh and waypoints, dynamically switching to a chase behavior when the player is nearby.
-                </p>
-                <p>
-                    <strong>Third person camera & character controller</strong> have been developed but more updates for the camera are planned including camera collision.
-                </p>
-                <p>
-                    <strong>Light & Shadow mechanics</strong> allow the player to visually transition between a hidden state (black colored model) and visible states that are weaker.
-                </p>
-                <p>
-                    <strong>Telportation system</strong> integrates particle effects and a coroutine for a delayed teleportaiton effect.
+                <h3>Final Implementations</h3>
+                <p> 
+                    <strong>Character Animations:</strong> Integrated via <strong>Mixamo</strong>, with transitions for walking, crouching, running, attacking, death, and teleportation. 
+                    Additional polish was added to blend animations smoothly based on player input and state. 
+                </p> 
+                <p> 
+                    <strong>Third-Person Camera & Controller:</strong> 
+                    Refined camera offset and player-relative movement. The camera remains fixed unless the player is moving, with stabilization added to avoid camera swing during 
+                    in-place rotations. Camera collision handling is still in development. 
+                </p> 
+                <p> 
+                    <strong>NPC AI Behavior:</strong> Two distinct NPC types: 
+                    <ul> 
+                        <li>Light constructs that use NavMesh and enter a chase state upon spotting the player.</li> 
+                        <li>Bruts that detect the player in range and enter a chase state when a player is in range.</li> 
+                    </ul> 
+                </p> 
+                <p> 
+                    <strong>Light & Shadow Mechanics:</strong> Shadow state provides visual and mechanical stealth benefits. 
+                    Entering light reduces shadow energy and increases detection risk. The player recharges shadow power by hiding in dark zones. 
+                </p> 
+                <p> 
+                    <strong>Teleportation System:</strong> The player can teleport within range if they have charge their shadow resource bar. A visual marker indicates eligible teleport points. 
+                    Particle effects and fade in/out visuals enhance immersion, and a cooldown + shadow cost balance usage. 
+                </p> 
+                <p> 
+                    <strong>Scene Transitions & Narrative:</strong> The game opens with a dream-like tutorial using canvas-based text prompts triggered via colliders. 
+                    This sequence smoothly transitions into the prison scene, establishing both narrative and mechanics. 
+                </p> 
+                <p> 
+                    <strong>Enemy Death Visuals:</strong> Shader-based fadeout effects trigger upon enemy defeat, 
+                    including fading materials and dimming lights attached to the light construct NPCs. 
+                </p> 
+                <p> 
+                    <strong>Audio:</strong> Implemented ambient music, sound cues for walking, running and death sequences. Audio feedback strengthens the stealth experience. 
+                </p> 
+                <p> 
+                    <strong>Interaction System:</strong> 
+                    The player can pick up keys and unlock doors via conditional checks. Interactions require proximity and specific input, adding minor puzzle-solving elements. 
                 </p>
             </section>
 
@@ -130,7 +153,7 @@ const AdvGameProgrammingFinal = () => {
                     <h2>NPC Patrol System</h2>
                     
                     <p>
-                        The NPCs in <strong>The Curse of Erephos</strong> navigate the environment using a waypoint-based patrol system. 
+                        The NPCs in <strong>The Curse of Erephos</strong> navigate the environment using a waypoint-based patrol. 
                         Each NPC follows a designated path using <strong>Unity's NavMesh system</strong>, ensuring smooth movement across the map. 
                         However, they are not simply passive wanderers—when a player enters their detection radius, they switch to a <strong>chase state</strong>.
                     </p>
@@ -145,7 +168,7 @@ const AdvGameProgrammingFinal = () => {
 
                     <p>
                         The patrol behavior is controlled by a <strong>NavMeshAgent</strong>, which handles movement between waypoints.
-                        The system also ensures that NPCs dynamically switch between <strong>patrolling, chasing, and returning to patrol</strong>.
+                        The system also ensures that NPCs dynamically switch between <strong>patrolling, chasing, looking around and returning to patrol</strong>.
                     </p>
 
                     <SyntaxHighlighter language="csharp" style={dracula}>
@@ -182,8 +205,8 @@ void Update()
 
                     <h3>Chasing the Player</h3>
                     <p>
-                        The NPC detects the player using a <strong>sphere-shaped proximity check</strong>. 
-                        If the player is within range, the NPC sets its destination to the player's position, 
+                        The NPC detects the player using a <strong>sphere-shaped proximity check</strong>. Once they are in the sphere, the npc 'knows' the player is nearby.
+                        Then, when the player enters their cone of vision, the NPC sets its destination to the player's position, 
                         dynamically updating the path as the player moves.
                     </p>
 
@@ -236,7 +259,7 @@ if (hitColliders.Length > 0)
                     <h3>Workflow Overview</h3>
                     <p>
                         The process begins with selecting a <strong>character model</strong> and downloading the necessary animations.
-                        Once the files are obtained, they are imported into <strong>Unity</strong>, where both the model and animations must be configured properly. 
+                        Once the files are obtained, they are imported into Unity, where both the model and animations must be configured properly. 
                         Below is a step-by-step breakdown of the workflow:
                     </p>
 
@@ -277,11 +300,17 @@ if (hitColliders.Length > 0)
                         <figcaption><strong>Figure 5:</strong> Setting up an Animator Controller in Unity to manage animations.</figcaption>
                     </figure>
                     <h3>Putting it all Together</h3>
+
+
+
+
+
+
                     <p>
-                        This character model can now demonstrate a salute animation!!
+                       
                     </p>
                     <iframe 
-                        src="https://drive.google.com/file/d/16YZ9LV0bDgDKJOMqqPi1DX88fN1YjhLZ/preview"
+                        src="https://drive.google.com/file/d/1qJEyQKC4CczQ97E4bkkGhQtVb-3TIHHY/preview"
                         width="100%" 
                         height="400"
                         allow="autoplay">
