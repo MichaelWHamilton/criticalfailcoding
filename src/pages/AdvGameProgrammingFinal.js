@@ -8,7 +8,7 @@ const AdvGameProgrammingFinal = () => {
         <div className="report-container">
             <header>
                 <h1>Advanced Game Programming</h1>
-                <h2>The Curse of Erephos (TBD)</h2>
+                <h2>The Curse of Erephos</h2>
                 <p><strong>By: Michael Hamilton</strong> | <em>Spring 2025</em></p>
             </header>
 
