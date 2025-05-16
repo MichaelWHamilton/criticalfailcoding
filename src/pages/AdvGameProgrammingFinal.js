@@ -52,7 +52,7 @@ const AdvGameProgrammingFinal = () => {
 
             <p>
                 By blending strategic stealth gameplay with a compelling narrative,  
-                <strong>The Curse of Erephos</strong> seeks to offer a unique experience that challenges both the player's skills  
+                this project seeks to offer a unique experience that challenges both the player's skills  
                 and their perception of power, justice, and sacrifice.
             </p>
         </section>
@@ -89,7 +89,7 @@ const AdvGameProgrammingFinal = () => {
             <section>
                 <h2>Summary of Implementations</h2>
                 <p> 
-                    Since the midterm, I’ve significantly expanded and refined core gameplay systems, integrating them into a 
+                    I’ve significantly expanded and refined core gameplay systems, integrating them into a 
                     playable section that showcases the tone, mechanics, and vision of the game. While the broader world is still in progress, the 
                     current implementation focuses on delivering a tightly scoped, interactive demo set within the prison bay environment. 
                 </p> 
@@ -149,205 +149,42 @@ const AdvGameProgrammingFinal = () => {
 
             {/* Core Features Detailed */}
             <section>
+
+                {/* Main Character */}
                 <section>
-                    <h2>NPC Patrol System</h2>
-                    
-                    <p>
-                        The NPCs in <strong>The Curse of Erephos</strong> navigate the environment using a waypoint-based patrol. 
-                        Each NPC follows a designated path using <strong>Unity's NavMesh system</strong>, ensuring smooth movement across the map. 
-                        However, they are not simply passive wanderers—when a player enters their detection radius, they switch to a <strong>chase state</strong>.
-                    </p>
+                    <h2>Main Character</h2>
 
                     <p>
-                        The NPC periodically checks for the player's presence using <code>Physics.OverlapSphere()</code>. 
-                        If the player is detected, the NPC abandons its patrol and pursues them. 
-                        If the player successfully escapes, the NPC disengages and returns to the nearest waypoint to resume its patrol.
+                        The main character in <strong>The Curse of Erephos</strong> is the player’s anchor in the world—both narratively and mechanically.
+                        From movement and camera control to supernatural powers and stealth mechanics, every system is designed to emphasize 
+                        immersion. This section highlights the character’s role that drives gameplay.
                     </p>
 
-                    <h3>Implementation</h3>
-
-                    <p>
-                        The patrol behavior is controlled by a <strong>NavMeshAgent</strong>, which handles movement between waypoints.
-                        The system also ensures that NPCs dynamically switch between <strong>patrolling, chasing, looking around and returning to patrol</strong>.
-                    </p>
-
-                    <SyntaxHighlighter language="csharp" style={dracula}>
-                {`void Start()
-{
-    agent = GetComponent<NavMeshAgent>();
-    GoToNextWaypoint();
-}
-
-void Update()
-{
-    // Check for player, if found then chase
-    Collider[] hitColliders = Physics.OverlapSphere(transform.position, sightRange, playerLayer);
-    if (hitColliders.Length > 0)
-    {
-        chasing = true;
-        target = hitColliders[0].transform;
-        agent.SetDestination(target.position);
-    }
-    else if (chasing)
-    {
-        if (agent.remainingDistance < 0.5f)
-        {
-            chasing = false;
-            GoToNextWaypoint();
-        }
-    }
-    else if (!agent.pathPending && agent.remainingDistance < 1.0f)
-    {
-        GoToNextWaypoint();
-    }
-}`}
-                    </SyntaxHighlighter>
-
-                    <h3>Chasing the Player</h3>
-                    <p>
-                        The NPC detects the player using a <strong>sphere-shaped proximity check</strong>. Once they are in the sphere, the npc 'knows' the player is nearby.
-                        Then, when the player enters their cone of vision, the NPC sets its destination to the player's position, 
-                        dynamically updating the path as the player moves.
-                    </p>
-
-                    <SyntaxHighlighter language="csharp" style={dracula}>
-                {`Collider[] hitColliders = Physics.OverlapSphere(transform.position, sightRange, playerLayer);
-if (hitColliders.Length > 0)
-{
-    chasing = true;
-    target = hitColliders[0].transform;
-    agent.SetDestination(target.position);
-}`}
-                    </SyntaxHighlighter>
-
-                    <h3>Returning to Patrol</h3>
-                    <p>
-                        If the player escapes the detection range, the NPC switches back to patrol mode. 
-                        Instead of returning to the first waypoint, it identifies the nearest waypoint and continues from there.
-                    </p>
-
-                    <SyntaxHighlighter language="csharp" style={dracula}>
-                {`if (chasing && agent.remainingDistance < 0.5f)
-{
-    chasing = false;
-    GoToNextWaypoint();
-}`}
-                    </SyntaxHighlighter>
-                    <br/>
-                    <iframe 
-                        src="https://drive.google.com/file/d/1yCUvq9FkWvHm5YGhJqrg6zM5UxmRzJi4/preview"
-                        width="100%" 
-                        height="400"
-                        allow="autoplay">
-                    </iframe>
-                    <figcaption><strong>Figure 1:</strong> Demonstration of the NPC patrol and chase system.</figcaption>
-                    
-
-                </section>
-
-                <div className="section-divider"></div>
-
-                <section>
-                    <h2>Character Animations Workflow</h2>
-
-                    <p>
-                        The animations in <strong>The Curse of Erephos</strong> are integrated using <strong>Mixamo</strong>. 
-                        Mixamo provides a variety of pre-rigged character models and animations, 
-                        allowing for quick prototyping and implementation.
-                    </p>
-
-                    <h3>Workflow Overview</h3>
-                    <p>
-                        The process begins with selecting a <strong>character model</strong> and downloading the necessary animations.
-                        Once the files are obtained, they are imported into Unity, where both the model and animations must be configured properly. 
-                        Below is a step-by-step breakdown of the workflow:
-                    </p>
-
-                    <ol style={{ textAlign: "left" }}>
-                        <li>Download a <strong>character model</strong> from Mixamo.</li>
-                        <li>Select and download <strong>animations</strong> that match the model (idle, walk, run).</li>
-                        <li>Import the <strong>model and animations</strong> into Unity.</li>
-                        <li>Extract <strong>materials and textures</strong> to properly apply them to the model.</li>
-                        <li>Add the model to the scene and assign it an <strong>Animator Component</strong>.</li>
-                        <li>Create an <strong>Animator Controller</strong> and assign the animations.</li>
-                        <li>Set up <strong>transitions</strong> between animations (idle to walk to run).</li>
-                        <li>Connect animation states to <strong>player input</strong> to trigger movement.</li>
-                    </ol>
-
-                    <h3>Importing Models and Animations</h3>
-                    <p>
-                        Once the <strong>character model</strong> is imported into Unity, its <strong>materials and textures</strong> need to be extracted and applied correctly. 
-                        The animations are then integrated through the <strong>Animator Component</strong> and controlled via an <strong>Animator Controller</strong>.
-                    </p>
-
-                    <figure>
-                        <img src="/images/charmodel.png" alt="Selecting a character model in Mixamo" className="full-width-img"/>
-                        <figcaption><strong>Figure 2:</strong> Selecting a character model in Mixamo.</figcaption>
-                    </figure>
-
-                    <figure>
-                        <img src="/images/animationonly.png" alt="Choosing an animation in Mixamo" className="full-width-img"/>
-                        <figcaption><strong>Figure 3:</strong> Choosing and downloading animations in Mixamo.</figcaption>
-                    </figure>
-
-                    <figure>
-                        <img src="/images/importmodel.png" alt="Importing models and animations into Unity" className="half-size-img"/>
-                        <figcaption><strong>Figure 4:</strong> Importing the downloaded character and animations into Unity.</figcaption>
-                    </figure>
-
-                    <figure>
-                        <img src="/images/animController.png" alt="Setting up an Animator Controller in Unity" className="full-width-img"/>
-                        <figcaption><strong>Figure 5:</strong> Setting up an Animator Controller in Unity to manage animations.</figcaption>
-                    </figure>
-                    <h3>Putting it all Together</h3>
-
-
-
-
-
-
-                    <p>
-                       
-                    </p>
-                    <iframe 
+                        <iframe 
                         src="https://drive.google.com/file/d/1qJEyQKC4CczQ97E4bkkGhQtVb-3TIHHY/preview"
                         width="100%" 
                         height="400"
                         allow="autoplay">
                     </iframe>
-                    <figcaption><strong>Figure 6:</strong> Video demonstration of importing and setting up animations in Unity.</figcaption>
-                    <br></br>
+                    <figcaption>Demonstration of main playable character.</figcaption>
 
-                    <h3>Animation Transitions and Player Input</h3>
-                    <p>
-                        The <strong>Animator Controller</strong> determines which animations play based on player input.
-                        This character demonstration has three main states: <strong>idle, walk, and run</strong>.
-                    </p>
 
-                    <ul style={{ textAlign: "left" }}>
-                        <li><strong>Idle:</strong> Default animation when no input is given.</li>
-                        <li><strong>Walk:</strong> Plays when the player moves normally.</li>
-                        <li><strong>Run:</strong> Triggers when the player holds the sprint key (Shift).</li>
-                    </ul>
+                    <h3>Character Role & Backstory</h3>
 
                     <p>
-                        The transitions between these animations are handled through <strong>parameters in the Animator Controller</strong>, 
-                        which dynamically switch based on the player's movement. The following video demonstrates how these animations can dynamically change based on player input.
+                        The protagonist begins as a prisoner of the Solmara, the dominant light-wielding faction who conquered Erephos.
+                        During their confinement, the player becomes the host of a vengeful shadow spirit, unlocking access to forbidden power
+                        long suppressed. This sets up a dynamic internal conflict: succumb to the shadow’s hunger for revenge,
+                        or seek balance and liberation for the oppressed Umbric people.
                     </p>
-                    <iframe 
-                        src="https://drive.google.com/file/d/1z2WdZZNCHwPtXwOmZjmSHgs81cqRjmt3/preview" 
-                        width="100%" 
-                        height="400"
-                        allow="autoplay">
-                    </iframe>
-                    <figcaption><strong>Figure 7:</strong> Demonstration of animation transitions based on player input.</figcaption>
 
-                </section>
+                    <p>
+                        The character is central to both gameplay and narrative, acting as the vessel through which the player 
+                        explores moral dilemmas, stealth-focused traversal, and a growing supernatural skillset. Their identity, powers, and 
+                        choices define the path ahead.
+                    </p>
 
-                <div className="section-divider"></div>
-                
-                <section>
-                    <h2>Player Input and Camera Control</h2>
+                    <h3>Character Input and Camera System</h3>
 
                     <p>
                         The player controller and third-person camera are separate but interconnected systems.  
@@ -360,66 +197,120 @@ if (hitColliders.Length > 0)
                         This allows the player to adjust their view dynamically while maintaining control over movement.
                     </p>
 
-                    <p>
-                        I initially struggled with getting the camera to behave the way I wanted.  
-                        I used ChatGPT to refine the camera system,  
-                        and while it works much better now, I still plan to modify it further.
-                    </p>
-
-                    <h3>Character Movement</h3>
+                    <h4>Character Movement</h4>
 
                     <p>
-                        The character moves using Unity's <strong>Rigidbody physics</strong>, allowing for smooth motion and natural rotation.  
+                        The character moves using Unity's Rigidbody physics, allowing for smooth motion and natural rotation.  
                         Movement input is processed every frame, and the player's orientation is adjusted to match the direction of movement.
                     </p>
 
-                    <SyntaxHighlighter language="csharp" style={dracula}>
-{`private void Update()
+<SyntaxHighlighter language="csharp" style={dracula}>
+{`float horizontal = Input.GetAxis("Horizontal");
+float vertical = Input.GetAxis("Vertical");
+
+Vector3 cameraForward = camTransform.forward;
+cameraForward.y = 0f;
+cameraForward.Normalize();
+
+Vector3 cameraRight = camTransform.right;
+cameraRight.y = 0f;
+cameraRight.Normalize();
+
+Vector3 inputDir = (cameraForward * vertical + cameraRight * horizontal).normalized;
+
+if (inputDir.magnitude > 0.1f)
 {
-    // Get movement input
-    float moveX = Input.GetAxisRaw("Horizontal");
-    float moveZ = Input.GetAxisRaw("Vertical");
+    Quaternion targetRotation = Quaternion.LookRotation(inputDir);
+    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 10f);
+}
 
-    // Calculate move direction relative to the camera
-    Vector3 move = cameraTransform.forward * moveZ + cameraTransform.right * moveX;
-    move.y = 0f;
-    moveDirection = move.normalized;
+Vector3 move = inputDir * speed;
+Vector3 newVelocity = new Vector3(move.x, rb.velocity.y, move.z);
+rb.velocity = newVelocity;`}
+</SyntaxHighlighter>
 
-    // Handle rotation only when moving
-    if (moveDirection.magnitude >= 0.1f)
-    {
-        Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-    }
-}`}
-                    </SyntaxHighlighter>
+    <p>
+        Movement is calculated relative to the <strong>camera’s position</strong>, ensuring that movement always aligns with the camera’s view.  
+        The character will rotate smoothly towards the movement direction using <strong>Quaternion Slerp</strong> for natural transitions.
+    </p>
 
-                    <p>
-                        Movement is calculated relative to the <strong>camera’s position</strong>, ensuring that movement always aligns with the camera’s view.  
-                        The character will rotate smoothly towards the movement direction using <strong>Quaternion Slerp</strong> for natural transitions.
-                    </p>
-
-                    <SyntaxHighlighter language="csharp" style={dracula}>
+    <SyntaxHighlighter language="csharp" style={dracula}>
 {`private void FixedUpdate()
 {
     // Apply movement
     rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
 }`}
-                    </SyntaxHighlighter>
+    </SyntaxHighlighter>
 
                     <p>
                         When the character moves I used <strong>FixedUpdate</strong> to maintain consistent physics-based motion.  
                         The <code>MovePosition</code> method ensures smooth movement without directly modifying the transform.
                     </p>
 
-                    <h3>Camera Control</h3>
+                    <h3>Input Handling</h3>
+<p>
+    Player movement speed is modified by different inputs <code>LeftShift</code> triggers running, while <code>LeftControl</code> enters a crouch state, each altering movement speed accordingly. These states are used to inform both movement velocity and animation state:
+</p>
 
-                    <p>
-                        The third-person camera allows <strong>free movement around the player</strong>,  
-                        controlled by the mouse while maintaining a set distance and height from the character.
-                    </p>
+<ul>
+    <li><strong>Walk Speed:</strong> Default movement</li>
+    <li><strong>Run Speed:</strong> When holding <code>LeftShift</code></li>
+    <li><strong>Crouch Speed:</strong> When holding <code>LeftControl</code></li>
+</ul>
 
-                    <SyntaxHighlighter language="csharp" style={dracula}>
+<p>
+    Additional inputs expand the character's capabilities:
+</p>
+
+<ul style={{textAlign: "left"}}>
+    <li><code>G</code> – Initiates the <strong>sword grab sequence</strong> when near the weapon.</li>
+    <li><code>Q</code> – Equips or unequips the sword. Logic checks the current state to toggle correctly.</li>
+    <li><code>Left Mouse Button</code> – Triggers an <strong>attack</strong> sequence if the sword is equipped and the player can attack.</li>
+    <li><code>Space</code> – Initiates a <strong>roll maneuver</strong> for quick evasion.</li>
+</ul>
+
+<SyntaxHighlighter language="csharp" style={dracula}>
+{`if (Input.GetKeyDown(KeyCode.G) && !hasGrabbedSword)
+{
+    StartCoroutine(GrabSword());
+}
+
+if (Input.GetKeyDown(KeyCode.Space) && !isRolling && canMove)
+{
+    StartCoroutine(Roll());
+}
+
+if (sword_hand.activeInHierarchy && Input.GetMouseButtonDown(0) && canAttack)
+{
+    StartCoroutine(Attack());
+}
+
+if (sword_back.activeInHierarchy && Input.GetKey(KeyCode.Q))
+{
+    animator.SetTrigger("Equip");
+    StartCoroutine(EquipPause());
+}
+else if (sword_hand.activeInHierarchy && Input.GetKey(KeyCode.Q))
+{
+    animator.Play("Unequip");
+    StartCoroutine(PutAwayPause());
+}`}
+</SyntaxHighlighter>
+
+<p>
+    These inputs are carefully sequenced using <strong>coroutines</strong> to ensure animations and effects (such as enabling sword trails or toggling weapon visibility) line up with timing expectations. Each input-driven action, such as attacking or rolling, temporarily restricts movement or re-enables it after a short delay to preserve animation fidelity and combat responsiveness.
+</p>
+
+
+
+<h4>Camera Control</h4>
+
+<p>
+    The third-person camera allows <strong>free movement around the player</strong>,  
+    controlled by the mouse while maintaining a set distance and height from the character.
+</p>
+
+    <SyntaxHighlighter language="csharp" style={dracula}>
 {`void LateUpdate()
 {
     if (target == null) return;
@@ -447,7 +338,7 @@ if (hitColliders.Length > 0)
     Vector3 lookAtTarget = target.position + Vector3.up * 1.5f + sideOffsetVector * 0.5f;
     transform.LookAt(lookAtTarget);
 }`}
-                    </SyntaxHighlighter>
+    </SyntaxHighlighter>
 
                     <p>
                         The camera follows a <strong>yaw and pitch system</strong>, allowing full control over horizontal and vertical angles.  
@@ -465,109 +356,316 @@ if (hitColliders.Length > 0)
                         I may also experiment with different camera angles and offsets to improve player visibility and control.
                     </p>
 
-                    <iframe 
-                        src="https://drive.google.com/file/d/1RI1s4K-nA8ID8sFUzTOzgF_X47l08lTx/preview"
-                        width="100%" 
-                        height="400"
-                        allow="autoplay">
-                    </iframe>
-                    
-                    <figcaption><strong>Figure 8:</strong> Player movement and camera control.</figcaption>
 
-                </section>
+<h3>Animation System</h3>
 
-                <div className="section-divider"></div>
+<p>
+    The animation system for the main character is built using Unity’s <strong>Animator Controller</strong> and a combination of a <strong>Blend Trees</strong> and animation 
+    <strong> triggers</strong>/<strong>booleans</strong>. Animations are directly driven by player input, allowing for responsive transitions between movement types and combat actions.
+</p>
 
-                <section>
-                    <h2>Light & Shadow Detection System</h2>
+<p>
+    A video demonstration of this system—showing how player input affects movement, animation, and camera behavior—is provided below:
+</p>
 
-                    <p>
-                        One of the core mechanics in <strong>The Curse of Erephos</strong> is the interaction between light and darkness.  
-                        When the player is in shadows, their model turns completely black, visually blending into the darkness.  
-                        If they step into the light, their original model color is restored.  
-                        This mechanic is crucial to stealth gameplay, allowing the player to avoid detection by staying in the shadows.
-                    </p>
+<iframe 
+    src="https://drive.google.com/file/d/1RYAfBYq0__9UJhzS4GPveMkWaBcrf9_7/preview" 
+    width="100%" 
+    height="400"
+    allow="autoplay">
+</iframe>
+<figcaption>Player input and animation transitions.</figcaption>
 
-                    <p>
-                        The system works by using <strong>raycasting</strong> to determine if the player is exposed to light.  
-                        Empty game objects are placed at the player's head and feet,  
-                        and each of these points casts a ray toward the <strong>directional light source</strong>.  
-                        If a ray does not reach the light due to an obstruction, such as the rays hitting a wall in between the player and the light source,
-                         the player is in darkness.  
-                        If one of the rays reaches the light, then the player is considered exposed.
-                    </p>
-                   
+<h4>Movement Blend Tree</h4>
 
-                    <p>
-                        To handle <strong>non-directional lights</strong> (such as lamps and torches),  
-                        a second approach is used: checking for <strong>light sources within range</strong> of the player.  
-                        If a nearby light is detected and there are no obstacles blocking it, the player is considered illuminated.  
-                    </p>
+<p>
+    The core movement logic is handled by a blend tree on the base layer of the Animator Controller.  
+    This tree only checks the float parameter <code>Speed</code>:
+</p>
 
-                    <h3>Implementation</h3>
+<ul style={{ textAlign: "left" }}>
+    <li><code>Speed = 0</code> – The player is idle.</li>
+    <li><code>Speed = 1</code> – The player is moving (walking, running, or crouch-walking).</li>
+</ul>
 
-                    <p>
-                        The lighting detection system dynamically checks both <strong>directional and non-directional lights</strong>  
-                        and smoothly transitions the player's material color based on the results.
-                    </p>
+<p>
+    What determines the actual movement animation is not the speed itself, but the active <code>IsRunning</code> and <code>IsCrouching</code> booleans.  
+    These flags are set in the input code depending on whether <code>LeftShift</code> or <code>LeftControl</code> is being held while moving:
+</p>
 
-                    <SyntaxHighlighter language="csharp" style={dracula}>
-{`private void Update()
+<SyntaxHighlighter language="csharp" style={dracula}>
+{`animator.SetFloat("Speed", isMoving ? 1f : 0f);
+animator.SetBool("IsRunning", isRunning);
+animator.SetBool("IsCrouching", isCrouching);`}
+</SyntaxHighlighter>
+
+<p>
+    Based on these parameters, the blend tree branches to one of the following:
+</p>
+
+<ul style={{ textAlign: "left" }}>
+    <li><strong>Walk</strong> – Default when <code>IsRunning = false</code> and <code>IsCrouching = false</code>.</li>
+    <li><strong>Run</strong> – Active when <code>IsRunning = true</code>.</li>
+    <li><strong>Crouch Walk</strong> – Active when <code>IsCrouching = true</code>.</li>
+</ul>
+
+<p>
+    When no movement input is detected, <code>Speed</code> is set to <code>0</code>, which causes the player to return to the idle animation by default.
+</p>
+
+<h4>Combat and Action Triggers</h4>
+
+<p>
+    Non-looping actions such as attacking, rolling, grabbing the sword, or equipping weapons are handled using <strong>animation triggers</strong> and coroutines.  
+    These triggers initiate one-time animation clips while temporarily locking out movement or activating game events like hit detection.
+</p>
+
+<ul style={{ textAlign: "left" }}>
+    <li><code>Attack</code> – Triggered by left mouse click when sword is equipped.</li>
+    <li><code>Roll</code> – Triggered by <code>Space</code>, temporarily boosts speed and disables normal input.</li>
+    <li><code>Grab</code> – Triggered by pressing <code>G</code> once near the sword.</li>
+    <li><code>Equip</code> / <code>Unequip</code> – Toggled using <code>Q</code>.</li>
+</ul>
+
+<SyntaxHighlighter language="csharp" style={dracula}>
+{`if (Input.GetMouseButtonDown(0) && canAttack)
 {
-    CheckLighting();
+    animator.SetTrigger("Attack");
+}
 
-    // Smoothly transition color
-    skinnedMeshRenderer.material.color = Color.Lerp(skinnedMeshRenderer.material.color, targetColor, transitionSpeed * Time.deltaTime);
+if (Input.GetKeyDown(KeyCode.Space) && !isRolling)
+{
+    animator.SetTrigger("Roll");
+}
+
+if (Input.GetKeyDown(KeyCode.G) && !hasGrabbedSword)
+{
+    animator.SetTrigger("Grab");
 }`}
-                    </SyntaxHighlighter>
+</SyntaxHighlighter>
 
-                    <p>
-                        The player's color transitions gradually instead of changing instantly,  
-                        making the shift between light and shadow more visually appealing.
-                    </p>
+<h4>Animation-Timed Coroutines</h4>
 
-                    <h3>Detecting Directional Light</h3>
+<p>
+    To ensure precise synchronization between gameplay mechanics and animation sequences, several actions are controlled via <strong>coroutines</strong>.  
+    These coroutines allow delays, timed effects, and state toggling to occur exactly when the animation requires them—preventing premature interactions or unintended behavior.
+</p>
 
-                    <p>
-                        The game checks if the player is exposed to <strong>directional light</strong>  
-                        by casting rays from their <strong>head and feet</strong> toward the light source.
-                        If any of these rays are unobstructed, the player is considered in the light.
-                    </p>
+<h5>Attack</h5>
+<p>
+    The <code>Attack</code> coroutine is triggered by the left mouse button and controls both animation flow and combat activation:
+</p>
 
-                    <SyntaxHighlighter language="csharp" style={dracula}>
+<ul style={{ textAlign: "left" }}>
+    <li>Disables further attacks until the animation finishes.</li>
+    <li>Plays the attack animation using a trigger.</li>
+    <li>Delays hitbox and trail effect activation for animation timing.</li>
+    <li>Re-enables attacking and disables the hitbox after the swing.</li>
+</ul>
+
+<SyntaxHighlighter language="csharp" style={dracula}>
+{`IEnumerator Attack()
+{
+    canAttack = false; 
+    animator.SetTrigger("Attack");
+    
+    yield return new WaitForSeconds(.7f);
+    swordCollider.enabled = true;
+    trailRenderer.enabled = true;
+    
+    yield return new WaitForSeconds(1f);
+    trailRenderer.enabled = false;
+    canAttack = true;
+    swordCollider.enabled = false;
+}`}
+</SyntaxHighlighter>
+
+<h5>Roll</h5>
+<p>
+    The <code>Roll</code> coroutine allows the player to perform a short evasion movement, temporarily disabling standard movement input:
+</p>
+
+<ul style={{ textAlign: "left" }}>
+    <li>Locks movement during the roll.</li>
+    <li>Applies velocity in the player’s forward direction.</li>
+    <li>Restores normal state when the roll completes.</li>
+</ul>
+
+<SyntaxHighlighter language="csharp" style={dracula}>
+{`IEnumerator Roll()
+{
+    isRolling = true;
+    animator.SetTrigger("Roll");
+
+    Vector3 rollDirection = transform.forward;
+
+    float timer = 0f;
+    while (timer < rollDuration)
+    {
+        rb.velocity = rollDirection * rollSpeed;
+        timer += Time.deltaTime;
+        yield return null;
+    }
+
+    rb.velocity = Vector3.zero;
+    isRolling = false;
+}`}
+</SyntaxHighlighter>
+
+<h5>GrabSword</h5>
+<p>
+    The <code>GrabSword</code> coroutine is triggered when the player presses <code>G</code> near the sword in the dream scene. It initiates a short cutscene-like moment:
+</p>
+
+<ul style={{ textAlign: "left" }}>
+    <li>Repositions the player to the sword’s grab point.</li>
+    <li>Plays the grab animation using a trigger.</li>
+    <li>Disables the world sword and enables equipped versions.</li>
+    <li>Removes the barrier wall to progress the scene.</li>
+</ul>
+
+<SyntaxHighlighter language="csharp" style={dracula}>
+{`IEnumerator GrabSword()
+{
+    hasGrabbedSword = true;
+    transform.position = grabSwordPosition.position;
+    animator.SetTrigger("Grab");
+
+    yield return new WaitForSeconds(1.2f);
+    sword.SetActive(false);
+    sword_hand.SetActive(true);
+    dagger_hand.SetActive(true);
+    dagger_back.SetActive(true);
+    removableWall.SetActive(false);
+}`}
+</SyntaxHighlighter>
+
+
+
+<h4>Death and Reset States</h4>
+
+<p>
+    The <code>IsDead</code> boolean is used to trigger a death animation.  
+    When active, it disables movement and combat entirely.  
+    A reset function clears this flag if the player respawns or retries the level.
+</p>
+
+<SyntaxHighlighter language="csharp" style={dracula}>
+{`animator.SetBool("IsDead", true); // on death
+animator.SetBool("IsDead", false); // on reset`}
+</SyntaxHighlighter>
+
+<h4>Summary of Animation Techniques</h4>
+
+<ul style={{ textAlign: "left" }}>
+    <li><strong>Blend Tree</strong> driven by <code>Speed</code> for movement transitions</li>
+    <li><strong>Bools</strong> (<code>IsRunning</code>, <code>IsCrouching</code>, <code>IsDead</code>) for conditional states</li>
+    <li><strong>Triggers</strong> for one-shot actions like <code>Attack</code>, <code>Roll</code>, <code>Grab</code>, <code>Equip</code></li>
+    <li><strong>Coroutines</strong> to manage timing of animations and gameplay logic (sword trail, hitbox activation)</li>
+</ul>
+
+<p>
+    This setup ensures that animations remain responsive and synced to input while allowing flexibility for combat, stealth, and environmental interaction.
+</p>
+
+
+
+
+
+
+
+<br/>
+<h3>Shadow System: Light Detection, Shadow Power, and Teleportation</h3>
+
+    <p>
+        A central pillar of gameplay in <strong>The Curse of Erephos</strong> is the dynamic relationship between light and shadow.  
+        This system influences not just stealth mechanics, but the player's access to abilities and traversal tools.  
+        Three key systems work together to bring this to life:
+    </p>
+
+    <ul style={{ textAlign: "left" }}>
+        <li><strong>Light Detection:</strong> Determines whether the player is currently exposed to light or hidden in shadow using raycasting logic.</li>
+        <li><strong>Shadow Power System:</strong> Tracks and displays the player's available energy, which increases while hidden and fuels supernatural abilities.</li>
+        <li><strong>Teleportation:</strong> A core ability that consumes shadow energy and allows the player to rapidly relocate, especially between safe shadowed zones.</li>
+    </ul>
+
+    <p>
+        With this system, players are encouraged to stay in shadow to remain unseen and recharge their power.  
+        In turn, this power can be spent to execute special maneuvers like teleportation to bypass danger or traverse gaps.  
+        The result is a gameplay experience that rewards patience, positioning, and planning, making the environment itself a key part of the player’s strategy.
+    </p>
+<br/>
+<h4>Light Detection System</h4>
+  <p>
+    The Light Detection System is the backbone of the shadow-based gameplay. It determines whether the player is in shadow or exposed to light by performing raycasts 
+    from two points on the player: the head and the feet. If both points are blocked from light, the player is considered to be fully in shadow.
+  </p>
+  <p>
+    This system dynamically evaluates lighting conditions each frame using both <strong>directional light</strong> and <strong>non-directional light</strong> sources. 
+    Rather than relying on visual cues like mesh color, the system sets a boolean <code>IsInShadow</code> that other scripts can read 
+    and respond to in real time.
+  </p>
+
+  <h4>Implementation</h4>
+
+  <p>
+    The system uses raycasting to detect light exposure:
+  </p>
+
+  <ul style={{ textAlign: "left" }}>
+    <li>
+      <strong>Directional Light:</strong> Rays are cast from the head and feet <em>opposite</em> the directional light’s forward vector.
+    </li>
+    <li>
+      <strong>Dynamic Light:</strong> The system finds all active lights in the scene and performs a proximity check. If a light is nearby, a raycast checks whether that light is obstructed.
+    </li>
+    <li>
+      If <strong>any ray reaches a light</strong>, the player is considered illuminated.
+      If <strong>all rays are blocked</strong>, the player is in shadow, and <code>IsInShadow</code> is set to true.
+    </li>
+  </ul>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`private void CheckLighting()
+{
+    bool isInLight = false;
+
+    isInLight = CheckDirectionalLight(lightCheckPointHead) || CheckDirectionalLight(lightCheckPointFeet);
+    isInLight = isInLight || CheckDynamicLights(lightCheckPointHead) || CheckDynamicLights(lightCheckPointFeet);
+
+    IsInShadow = !isInLight;
+}`}
+  </SyntaxHighlighter>
+
+  <p>
+    Directional lighting is evaluated like this:
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
 {`private bool CheckDirectionalLight(Transform checkPoint)
 {
     Vector3 lightDirection = -directionalLight.transform.forward;
     return !Physics.Raycast(checkPoint.position, lightDirection, lightCheckDistance);
 }`}
-                    </SyntaxHighlighter>
+  </SyntaxHighlighter>
 
-                    <p>
-                        If the raycast does not hit an obstacle, the player is exposed.  
-                        If the ray collides with an object before reaching the light, the player remains in shadow.
-                    </p>
+  <p>
+    Non-directional lights are evaluated by checking if any nearby lights are visible (unobstructed):
+  </p>
 
-                    <h3>Handling Non-Directional Light</h3>
-
-                    <p>
-                        Non-directional lights (such as lamps, torches, or glowing objects) require a different approach.  
-                        The system scans for <strong>all active lights</strong> in the scene,  
-                        checking if any are within a certain <strong>radius</strong> of the player's <strong>head or feet</strong>.
-                    </p>
-
-                    <SyntaxHighlighter language="csharp" style={dracula}>
-{`private bool CheckDynamicLights(Transform transform)
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`private bool CheckDynamicLights(Transform checkPoint)
 {
     Light[] allLights = FindObjectsOfType<Light>();
     foreach (Light light in allLights)
     {
-        if (light.type != LightType.Directional && Vector3.Distance(lightCheckPointHead.position, light.transform.position) <= dynamicLightCheckRadius)
+        if (light.type != LightType.Directional &&
+            Vector3.Distance(checkPoint.position, light.transform.position) <= dynamicLightCheckRadius)
         {
-            Vector3 directionToLight = (light.transform.position - lightCheckPointHead.position).normalized;
-            float distanceToLight = Vector3.Distance(lightCheckPointHead.position, light.transform.position);
+            Vector3 directionToLight = (light.transform.position - checkPoint.position).normalized;
+            float distanceToLight = Vector3.Distance(checkPoint.position, light.transform.position);
 
-            // Raycast towards the dynamic light source
-            if (!Physics.Raycast(lightCheckPointHead.position, directionToLight, distanceToLight))
+            if (!Physics.Raycast(checkPoint.position, directionToLight, distanceToLight))
             {
                 return true;
             }
@@ -575,232 +673,646 @@ if (hitColliders.Length > 0)
     }
     return false;
 }`}
-                    </SyntaxHighlighter>
-
-                    <p>
-                        If a nearby <strong>non-directional light</strong> is detected and no obstacles block the path,  
-                        the player is considered illuminated. Otherwise, they remain in darkness.
-                    </p>
-
-                    <h3>Debugging & Visualization</h3>
-
-                    <p>
-                        To assist with debugging, the system uses <strong>Gizmos</strong> to visualize detection zones in the Unity Editor.  
-                        The detection points at the <strong>head and feet</strong> are displayed as yellow spheres,  
-                        and raycast paths toward the <strong>directional light</strong> are drawn as lines.
-                    </p>
-
-                    <SyntaxHighlighter language="csharp" style={dracula}>
-{`private void OnDrawGizmosSelected()
-{
-    if (lightCheckPointHead == null || lightCheckPointFeet == null) return;
-
-    Gizmos.color = Color.yellow;
-    Gizmos.DrawWireSphere(lightCheckPointHead.position, dynamicLightCheckRadius);
-    Gizmos.DrawWireSphere(lightCheckPointFeet.position, dynamicLightCheckRadius);
-
-    if (directionalLight != null)
-    {
-        Vector3 lightDirection = -directionalLight.transform.forward;
-        Gizmos.DrawLine(lightCheckPointHead.position, lightCheckPointHead.position + lightDirection * lightCheckDistance);
-        Gizmos.DrawLine(lightCheckPointFeet.position, lightCheckPointFeet.position + lightDirection * lightCheckDistance);
-    }
-}`}
-                    </SyntaxHighlighter>
-                    <br/>
-                    <p>
-                        One issue I ran into with this system is that intially, I was only checking with rays from the top of the player model. 
-                        This became an issue. There were situations where half the player model was in light, but still triggered the script for the model to turn dark. 
-                        See the figure 9 below for a demonstration.
-                    </p>
-
-                    <iframe 
-                        src="https://drive.google.com/file/d/1iT9Shro3t9b0X3tuzHSE7K_XLYBPikvE/preview"
-                        width="100%" 
-                        height="400"
-                        allow="autoplay">
-                    </iframe>
-                    <figcaption><strong>Figure 9:</strong> Demonstration of the player transitioning between light and shadow with only the head raycast.</figcaption>
-                    <br></br>
+  </SyntaxHighlighter>
+  <p>
+    This system creates the foundation for stealth and power-based mechanics by providing reliable and performant feedback about the player’s lighting environment.
+  </p>
 
 
-                    <p>
-                        The next video demonstrates how the basic shadow effect with <strong>two rays</strong> being cast from the player model should operate. 
-                        This I think is the best approach I could come up with, and I think it works well.
-                    </p>
-
-                    
-
-                    <iframe 
-                        src="https://drive.google.com/file/d/1oAStUuTHTutYdOto19TJTy0istHX4XO-/preview" 
-                        width="100%" 
-                        height="400"
-                        allow="autoplay">
-                    </iframe>
-                    <figcaption><strong>Figure 10:</strong> Demonstration of the player transitioning between light and shadow with both head and feet raycast. This ensures the entire model is in darkness before changing the model.</figcaption>
-                    <br></br>
-
-                    <p>
-                        Lastly, this video demonstrates the detection for lights in proximity of the player. Even if the player isn't exposed to the scene directional light 
-                        there needs to be detections for lights in proximity such as torches.
-                    </p>
-
-                    <iframe 
-                        src="https://drive.google.com/file/d/1pOvKQzY-cwK7UFvlm8GeEMIi_4pkyDsQ/preview" 
-                        width="100%" 
-                        height="400"
-                        allow="autoplay">
-                    </iframe>
-                    <figcaption><strong>Figure 11:</strong> Player interacting with proximity light sources in the environment.</figcaption>
-                    
-                    <h3>Shadow Empowerment & Ability System</h3>
-                    <p>
-                    This light and shadow system will serve as more than just a stealth mechanic, it will act as the foundation for the player's power system. 
-                    In darkness, the player will be stealthier and physically stronger, making shadows not just a place to hide, but a source of energy. 
-                    The ability to use special powers will be tied to the player's enshrouded state, meaning abilities can only be cast while in darkness. 
-                    To balance this, I plan to implement a cost system that regulates power usage, ensuring that players must strategically navigate between light and shadow.
-                    This will add another layer of depth to both movement and combat, reinforcing the importance of staying unseen. 
-                    </p>
-
-                </section>
 
 
-                <div className="section-divider"></div>
+  <h3>Shadow Power System</h3>
 
-                <section>
-                    <h2>Teleportation System</h2>
+  <p>
+    The Shadow Power system serves as the player’s core energy mechanic, enabling supernatural abilities like teleportation.  
+    Shadow power is gained by remaining in darkness and drained over time when exposed to light.  
+    This encourages players to stay hidden not just for stealth, but also to maintain their power.
+  </p>
 
-                    <p>
-                        The teleportation mechanic is designed to allow the player to navigate the environment stealthily.  
-                        It serves as a tool to bypass obstacles or cross areas that would otherwise expose the player to light.  
-                        For example, if a well-lit corridor is blocking the path, the player can teleport to a shadowed area on the other side,  
-                        avoiding detection and maintaining their stealth.
-                    </p>
+  <p>
+    The player’s current shadow energy is represented by a <strong>UI bar</strong> on the canvas. As the value fills or depletes, the bar reflects the current energy level in real time.
+  </p>
 
-                    <p>
-                        The system works by casting a <strong>ray</strong> from the reticle’s position within a certain range.  
-                        If the ray hits a valid teleport location, the player can instantly move there.  
-                        While teleportation is already functional, I plan to implement additional mechanics to ensure that  
-                        the player can only teleport into shadows. I also need to restrict teleportation  
-                        based on the player’s current <strong>shadow empowerment level</strong>, ensuring that teleporting  
-                        remains a limited resource rather than an infinite ability.
-                    </p>
+  <h3>Behavior</h3>
 
-                    <h3>Implementation</h3>
+  <ul style={{ textAlign: "left" }}>
+    <li><strong>In Shadow:</strong> Shadow power increases at a steady <code>fillRate</code> per second.</li>
+    <li><strong>In Light:</strong> Shadow power drains over time at a slower <code>drainRate</code>.</li>
+    <li><strong>Cap:</strong> Shadow energy is clamped between 0 and <code>maxShadowPower</code> (100).</li>
+    <li><strong>UI:</strong> The bar fill amount is updated every frame based on current shadow power.</li>
+  </ul>
 
-                    <p>
-                        The teleportation system is activated when the player presses the <strong>E key</strong>,  
-                        and it has a built-in cooldown to prevent spamming.  
-                        The script checks the position of the reticle and initiates teleportation.
-                    </p>
-
-                    <SyntaxHighlighter language="csharp" style={dracula}>
+  <SyntaxHighlighter language="csharp" style={dracula}>
 {`void Update()
 {
-    if (Input.GetKeyDown(KeyCode.E) && Time.time > lastTeleportTime + teleportCooldown)
+    if(playerLightDetector != null && playerLightDetector.IsInShadow)
     {
-        Vector3 teleportPosition = reticleScript.GetReticleWorldPos();
-        
-        if (teleportPosition != Vector3.zero) 
-        {
-            StartCoroutine(TeleportWithParticles(teleportPosition));
-            lastTeleportTime = Time.time;
-        }
+        shadowPower += fillRate * Time.deltaTime;
+    }
+    else 
+    {
+        shadowPower -= drainRate * Time.deltaTime;
+    }
+
+    shadowPower = Mathf.Clamp(shadowPower, 0f, maxShadowPower);
+
+    if(shadowBarFill != null)
+    {
+        shadowBarFill.fillAmount = shadowPower / maxShadowPower;
     }
 }`}
-                    </SyntaxHighlighter>
+  </SyntaxHighlighter>
 
-                    <p>
-                        The <strong>reticle</strong> determines the teleport location, ensuring that the player  
-                        only moves to a valid surface.
-                    </p>
+  <p>
+    The system reads from <code>PlayerLightDetector.IsInShadow</code>, which is calculated via the raycasting logic described in the Light Detection System.  
+    This creates a live feedback loop: the player’s positioning directly affects power gain/loss, rewarding stealthy movement.
+  </p>
 
-                    <h3>Using Coroutines for Teleportation Delay</h3>
+  <h3>Spending Shadow Power</h3>
+  <p>
+    Special abilities like teleportation use the <code>SpendShadow()</code> method, which deducts a set amount from the current pool.  
+    This function ensures the bar UI remains in sync and that power never exceeds boundaries:
+  </p>
 
-                    <p>
-                        Instead of making teleportation happen instantly, I implemented a slight delay  
-                        using a coroutine. This makes the teleport feel more deliberate rather than instant movement.  
-                        The delay also provides a window for visual effects to trigger.
-                    </p>
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`public void SpendShadow(float amount)
+{
+    shadowPower -= amount;
+    shadowPower = Mathf.Clamp(shadowPower, 0f, maxShadowPower);
+    if (shadowBarFill != null)
+    {
+        shadowBarFill.fillAmount = shadowPower / maxShadowPower;
+    }
+}`}
+  </SyntaxHighlighter>
 
-                    <SyntaxHighlighter language="csharp" style={dracula}>
+  <p>
+    This mechanic forms the backbone of the player's supernatural toolkit.  
+    The player must manage this resource carefully — using it too often without returning to shadow may leave them vulnerable and powerless.
+  </p>
+
+
+<iframe 
+    src="https://drive.google.com/file/d/1rT1w1qv7-FmGMaAmUkLXxc3MJSMabb6M/preview" 
+    width="100%" 
+    height="400"
+    allow="autoplay">
+  </iframe>
+  <figcaption>Light Detections.</figcaption>
+
+
+<br/>
+<h3>Teleportation System</h3>
+
+  <p>
+    The teleportation mechanic in The Curse of Erephos is a core tool that allows the player to blink to a new location within a limited range.  
+    The ability is activated via a targeting system that displays a marker on valid surfaces and can only be used when the player has sufficient <strong>shadow power</strong>.  
+    This makes teleportation both powerful and limited, requiring players to manage their energy carefully and time their use with intent.
+  </p>
+
+  <h3>Core Mechanics</h3>
+  <ul style={{ textAlign: "left" }}>
+    <li><strong>Key Hold (T):</strong> Shows a visual marker on valid surfaces within range.</li>
+    <li><strong>Key Release:</strong> Initiates the teleport if the shadow power bar has enough energy.</li>
+    <li><strong>Cooldown:</strong> Prevents rapid re-use of the ability.</li>
+    <li><strong>Visual Feedback:</strong> Teleportation is paired with particle effects at the origin and destination.</li>
+    <li><strong>Energy Cost:</strong> Each teleport consumes a set amount of shadow power.</li>
+  </ul>
+
+  <h3>Input and Activation Logic</h3>
+  <p>
+    Teleportation begins by holding <code>T</code>, which casts a ray from the camera forward and places a marker on the surface hit.  
+    Releasing <code>T</code> initiates the teleport if conditions are met:
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`if (Input.GetKeyDown(KeyCode.T) && shadowPower.shadowPower > shadowCost)
+{
+    ShowTeleportMarker();
+}
+if (Input.GetKeyUp(KeyCode.T) && Time.time > lastTeleportTime + teleportCooldown)
+{
+    if (shadowPower != null && shadowPower.shadowPower >= shadowCost && markerInstance.activeSelf)
+    {
+        TeleportToMarker();
+        markerInstance.SetActive(false);
+    }
+}`}
+  </SyntaxHighlighter>
+
+  <h3>Target Marker System</h3>
+  <p>
+    The system spawns a visual marker on any valid surface hit by the forward ray (ignoring the player's own collider).  
+    This gives the player clear feedback on where they’ll land before committing to a teleport.
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`void ShowTeleportMarker()
+{
+    Vector3 origin = Camera.main.transform.position + Camera.main.transform.forward * 2f;
+    Ray ray = new Ray(origin, Camera.main.transform.forward);
+    RaycastHit hit;
+
+    if (Physics.Raycast(ray, out hit, maxTeleportDistance))
+    {
+        if (hit.collider.gameObject == gameObject || hit.collider.transform.root == transform)
+            return;
+
+        markerInstance.SetActive(true);
+        markerInstance.transform.position = hit.point + Vector3.up * 0.01f;
+        markerInstance.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+    }
+    else
+    {
+        markerInstance.SetActive(false);
+    }
+}`}
+  </SyntaxHighlighter>
+
+  <h3>Teleport Execution</h3>
+  <p>
+    Upon confirmation, the player is teleported to the marker’s location, shadow power is reduced, and visual effects are triggered using a coroutine.
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`void TeleportToMarker()
+{
+    transform.position = markerInstance.transform.position;
+    shadowPower.SpendShadow(shadowCost);
+    lastTeleportTime = Time.time;
+
+    StartCoroutine(TeleportWithParticles(markerInstance.transform.position));
+}`}
+  </SyntaxHighlighter>
+
+  <h3>Teleport Visual Effects</h3>
+  <p>
+    A coroutine adds a short delay and plays particle effects at both the start and end points for visual immersion.
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
 {`IEnumerator TeleportWithParticles(Vector3 newPosition)
 {
-    // Spawn particles at starting position
     if (teleportEffect)
     {
         Vector3 pos = new Vector3(transform.position.x, transform.position.y+1f, transform.position.z);
         ParticleSystem effect = Instantiate(teleportEffect, pos, Quaternion.identity);
-        Destroy(effect.gameObject, 1f); // Destroy particles if lingering
+        Destroy(effect.gameObject, 1f);
     }
 
-    yield return new WaitForSeconds(0.4f); // Delay before teleport
+    yield return new WaitForSeconds(0.4f);
 
-    // Teleport player to look position
     transform.position = newPosition;
 
-    // Spawn particles at new position
     if (teleportEffect)
     {
         newPosition.y += 1f;
         ParticleSystem effect = Instantiate(teleportEffect, newPosition, Quaternion.identity);
-        Destroy(effect.gameObject, 1f); // Destroy particles if lingering
+        Destroy(effect.gameObject, 1f);
     }
 }`}
-                    </SyntaxHighlighter>
+  </SyntaxHighlighter>
 
-                    <p>
-                        This coroutine handles the teleportation process by adding a <strong>0.4-second delay </strong>  
-                        before moving the player. This delay helps the transition feel more fluid  
-                        and provides time for particle effects to animate at both the start and ending locations.
-                    </p>
-
-                    <iframe 
-                        src="https://drive.google.com/file/d/1-HBnwb0kjhCwfRTEx4dBXHFnyo303Gz-/preview" 
-                        width="100%" 
-                        height="400"
-                        allow="autoplay">
-                    </iframe>
-                    <figcaption><strong>Figure 12:</strong> Demonstration of the teleportation system.</figcaption>
-
-                    <h3>Planned Improvements</h3>
-
-                    <p>
-                        While teleportation is functional, there are some changes I need to make so it feels more balanced and immersive:
-                    </p>
-
-                    <ul style={{textAlign: "left"}}>
-                        <li>Implementing a <strong>shadow check</strong> to ensure the player can only teleport into darkness.</li>
-                        <li>Restricting teleportation based on the player’s <strong>shadow empowerment level</strong>.</li>
-                        <li>Adding an additional effect when teleportation is not allowed, such as a visual distortion or sound cue.</li>
-                    </ul>
-
-                    <h3>Improving the Particle Effects</h3>
-
-                    <p>
-                        Right now, the particle effects for teleportation are functional but not very fleshed out.  
-                        They provide a basic visual cue, but they don’t fully enhance the feeling of movement or the  
-                        supernatural aspect of the teleportation mechanic. I want to improve this in several ways:
-                    </p>
-
-                    <ul style={{textAlign: "left"}}>
-                        <li>Making the particles feel more dynamic, with <strong>trailing effects</strong> that give a sense of motion.</li>
-                        <li>Adding a <strong>dissolve or distortion effect</strong> when the player disappears and reappears.</li>
-                        <li>Experimenting with different colors or <strong>shadowy wisps</strong> that briefly remain after teleporting.</li>
-                    </ul>
-
-                    <p>
-                        These changes will help reinforce the supernatural feel of teleportation  
-                        and make it visually satisfying to use.
-                    </p>
-
-                    
-
-                </section>
+  <h3>Planned Enhancements</h3>
+  <ul style={{ textAlign: "left" }}>
+    <li>No current way to cancel teleport destination manually. Needs adjustment if the player changes their mind while picking a location.</li>
+    <li>Teleport restriction to valid <strong>shadow-only locations</strong>.</li>
+    <li>Visual feedback when teleport fails.</li>
+    <li><strong>Dissolve/blur effects</strong> to amplify the supernatural feel.</li>
+  </ul>
 
 
-                <div className="section-divider"></div>
-            </section>
+
+
+
+
+</section>
+      
+
+
+    <div className="section-divider"></div>
+
+
+<section>
+  <h2>NPC Overview</h2>
+
+  <p>
+    The NPCs in the game consists of two distinct enemy types, each with unique behaviors, aesthetics, and roles within the stealth-action loop: the <strong>Light Bot</strong> and the <strong>Brut</strong>.  
+    Both enemies use Unity’s <strong>NavMeshAgent</strong> for movement and rely on internal state machines to manage behaviors like idling, patrolling, chasing, or attacking.
+    Their animations are driven by these states, with transitions triggered in response to detection events or combat conditions.
+  </p>
+
+  <h3>Light Bot</h3>
+  <p>
+    The Light Bot is a mobile, patrolling construct powered by internal light. Its design emphasizes an otherworldly aesthetic — glowing from within, with animated inner joints that radiate illumination.  
+    It will patroll between waypoints until it detects the player. Once alerted, it enters a chase state. If the player escapes, it will eventually return to its patrol route.
+  </p>
+
+  <h3>Brut</h3>
+  <p>
+    The Brut is equipped with a battle axe. Unlike the Light Bot, it remains stationary — sitting idle until a player enters its detection range.  
+    Upon spotting the player, the Brut stands, activates its attack logic, and uses a ranged light-based projectile to engage. If the player escapes, the Brut returns to its seated idle state.
+  </p>
+
+<br/>
+    <h3>Light Bot: Patrolling Construct</h3>
+
+  <p>
+    The <strong>Light Bot</strong> is a glowing construct powered by light, designed as an active threat that patrols the environment and pursues the player upon detection.  
+    It uses internal lights and a shader-enhanced skeletal mesh to visually represent its dependence on light, reinforcing the theme that light is not always benevolent in this world.
+  </p>
+
+  <p>
+    Behaviorally, the Light Bot patrols along preset waypoints using <strong>Unity’s NavMeshAgent</strong>. When the player enters its vision cone, it transitions into a chase state,  
+    attacks when in range, and returns to patrol if the player escapes. Animations are tightly linked to its internal state, with visual and audio cues for transitions.
+  </p>
+
+  <h3>Behavior States</h3>
+  <p>
+    The Light Bot uses a simple <code>enum</code>-based finite state machine to manage its behavior:
+  </p>
+
+  <ul style={{ textAlign: "left" }}>
+    <li><strong>Patrolling:</strong> Navigates between waypoints.</li>
+    <li><strong>Chasing:</strong> Pursues the player if detected within field of view.</li>
+    <li><strong>Investigating:</strong> Moves to the last known player location.</li>
+    <li><strong>LookingAround:</strong> Brief idle state before returning to patrol.</li>
+    <li><strong>Attacking:</strong> Fires a light-based projectile from its weapon.</li>
+  </ul>
+
+  <p>
+    State transitions are handled in <code>Update()</code>, and the bot’s speed is passed to the Animator:
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`animator.SetFloat("Speed", agent.velocity.magnitude);`}
+  </SyntaxHighlighter>
+
+  <h3>Vision Detection</h3>
+  <p>
+    The Light Bot performs a proximity check using <code>Physics.OverlapSphere()</code> and then confirms line-of-sight with a <code>Raycast</code> inside a cone-shaped field of view:
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`bool CanSeePlayer()
+{
+    Collider[] hits = Physics.OverlapSphere(transform.position, sightRange, playerLayer);
+    foreach (var hit in hits)
+    {
+        Vector3 eyePos = transform.position + Vector3.up * eyeHeight;
+        Vector3 dirToTarget = (hit.transform.position - eyePos).normalized;
+        float angle = Vector3.Angle(transform.forward, dirToTarget);
+        if (angle < viewAngle / 2f)
+        {
+            if (Physics.Raycast(eyePos, dirToTarget, out RaycastHit hitInfo, sightRange))
+            {
+                if (hitInfo.collider.CompareTag("Player"))
+                {
+                    target = hit.transform;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}`}
+  </SyntaxHighlighter>
+
+  <h3>Combat & Attack</h3>
+  <p>
+    When the player is within <code>attackRange</code> and visible, the Light Bot stops moving and launches a light projectile using an attack animation.  
+    After attacking, it waits for a delay before it can attack again:
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`IEnumerator Attack()
+{
+    agent.isStopped = true;
+    animator.SetTrigger("Attack");
+    hasAttacked = true;
+
+    yield return new WaitForSeconds(.85f);
+
+    Vector3 direction = (target.position + Vector3.up * 1.2f) - weaponMuzzlePoint.position;
+    Quaternion lookRotation = Quaternion.LookRotation(direction.normalized);
+    Instantiate(lightSlashPrefab, weaponMuzzlePoint.position, lookRotation);
+
+    yield return new WaitForSeconds(attackDelay);
+    hasAttacked = false;
+    agent.isStopped = false;
+    currentState = CanSeePlayer() ? NPCState.Chasing : NPCState.Investigating;
+}`}
+  </SyntaxHighlighter>
+
+  <h3>Animations</h3>
+  <p>
+    The Light Bot transitions between animation states based on behavior:
+  </p>
+
+  <ul style={{ textAlign: "left" }}>
+    <li>Walk animations play while patrolling or chasing.</li>
+    <li>Equipping animation is triggered when detection occurs.</li>
+    <li>Attack and look-around animations play during combat and investigation.</li>
+    <li>Animator booleans like <code>IsChasing</code> and <code>LookAround</code> control transitions.</li>
+  </ul>
+
+  <img src="/images/LightBotAnimator.png" alt="Light Bot Animator Tree" className="full-width-img" />
+  <figcaption>Animator structure for Light Bot transitions.</figcaption>
+
+  <h3>Death & Visual Effects</h3>
+  <p>
+    When defeated, the Light Bot disables its NavMeshAgent and plays a fade-out sequence:
+  </p>
+
+  <ul style={{ textAlign: "left" }}>
+    <li>All light sources on the bot fade to black over time.</li>
+    <li>A special shader material on its joints gradually fades using a <code>_Fade</code> parameter.</li>
+    <li>The bot’s collider and agent are disabled to prevent further interaction.</li>
+  </ul>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`IEnumerator FadeLights(float duration)
+{
+    float elapsed = 0f;
+    while (elapsed < duration)
+    {
+        float factor = Mathf.Lerp(1f, 0f, elapsed / duration);
+        foreach (var light in lightsToFade)
+            light.intensity = factor;
+
+        elapsed += Time.deltaTime;
+        yield return null;
+    }
+}`}
+  </SyntaxHighlighter>
+
+  <h3>Demo Video</h3>
+  <p>
+    The following video demonstrates the Light Bot patrolling, detecting the player, attacking, and dying:
+  </p>
+
+  <iframe 
+    src="https://drive.google.com/file/d/1S_1TuR94_NrKHsWnZuJFtG2SIiv-cjAx/preview" 
+    width="100%" 
+    height="400"
+    allow="autoplay">
+  </iframe>
+  <figcaption>Light Bot AI demonstration in gameplay.</figcaption>
+
+
+
+
+
+
+<br/>
+<h3>Brut: Stationary Guardian</h3>
+
+  <p>
+    The <strong>Brut</strong> is a stationary enemy that remains seated until it detects the player within a certain range.  
+    It serves as a static obstacle in chokepoints and key locations, emphasizing awareness and planning over movement.  
+    Unlike the Light Bot, the Brut does not patrol, but its ability to engage at range makes it a dangerous opponent in tight corridors.
+  </p>
+
+  <p>
+    Once the Brut detects the player, it transitions through a staged animation sequence: standing up, chasing, and eventually attacking using a light-based projectile.  
+    If the player escapes, the Brut will look around briefly before returning to its seated idle position.  
+    Like the Light Bot, it uses Unity’s <strong>NavMeshAgent</strong> for controlled navigation and state-based animation logic.
+  </p>
+
+  <h3>Behavior States</h3>
+  <p>
+    The Brut’s behavior is defined through an <code>enum</code>-based finite state machine with the following phases:
+  </p>
+
+  <ul style={{ textAlign: "left" }}>
+    <li><strong>Sitting:</strong> Default idle pose with no movement.</li>
+    <li><strong>StandingUp:</strong> Plays stand-up animation when the player is detected.</li>
+    <li><strong>Chasing:</strong> Actively moves toward the player’s last known location.</li>
+    <li><strong>Attacking:</strong> Fires a projectile from its weapon if in range.</li>
+    <li><strong>Investigating:</strong> Moves to last seen position if the player is lost.</li>
+    <li><strong>LookingAround:</strong> Pauses and surveys area before returning.</li>
+    <li><strong>ReturningToSeat:</strong> Navigates back to original position.</li>
+    <li><strong>SittingDown:</strong> Plays sit-down animation to return to idle.</li>
+  </ul>
+
+  <h3>Detection & Activation</h3>
+  <p>
+    When the player enters the Brut's vision range and cone, it plays a stand-up animation and transitions to an active combat state:
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`void SittingUpdate()
+{
+    if (CanSeePlayer() && (currentState == NPCState.Sitting || currentState == NPCState.SittingDown))
+    {
+        animator.SetTrigger("StandUp");
+        currentState = NPCState.StandingUp;
+        StartCoroutine(DelayThenChase());
+    }
+}`}
+  </SyntaxHighlighter>
+
+  <p>
+    The <code>DelayThenChase()</code> coroutine adds a delay during the standing animation before switching to the chase state:
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`IEnumerator DelayThenChase()
+{
+    agent.isStopped = true;
+    yield return new WaitForSeconds(standUpDelay); 
+    agent.isStopped = false;
+
+    lastKnownPosition = target.position;
+    agent.SetDestination(lastKnownPosition);
+    animator.SetBool("IsChasing", true);
+    currentState = NPCState.Chasing;
+}`}
+  </SyntaxHighlighter>
+
+  <h3>Combat & Attacks</h3>
+  <p>
+    The Brut fires a projectile from its axe when the player is within attack range. After attacking, it returns to chasing or begins looking around if the player is lost:
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`IEnumerator Attack()
+{
+    agent.isStopped = true;
+    animator.SetTrigger("Attack");
+    hasAttacked = true;
+
+    yield return new WaitForSeconds(attackDelay);
+    Instantiate(lightSlashPrefab, weaponMuzzlePoint.position, weaponMuzzlePoint.rotation);
+    
+    hasAttacked = false;
+    agent.isStopped = false;
+
+    currentState = CanSeePlayer() ? NPCState.Chasing : NPCState.LookingAround;
+    if (currentState == NPCState.LookingAround)
+        StartCoroutine(LookAroundThenReturn());
+}`}
+  </SyntaxHighlighter>
+
+  <h3>Return to Idle</h3>
+  <p>
+    If the player escapes, the Brut enters a temporary "look around" state before walking back to its original sitting point and resuming idle:
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`IEnumerator LookAroundThenReturn()
+{
+    yield return new WaitForSeconds(1.5f);
+    animator.SetBool("LookAround", true);
+    agent.isStopped = true;
+    yield return new WaitForSeconds(lookAroundDuration);
+    animator.SetBool("LookAround", false);
+    agent.isStopped = false;
+
+    currentState = NPCState.ReturningToSeat;
+    animator.SetBool("IsChasing", false);
+    agent.SetDestination(sittingPoint);
+}`}
+  </SyntaxHighlighter>
+
+  <p>
+    Once it reaches the seat, it plays the sit-down animation and resumes the <code>Sitting</code> state:
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`IEnumerator SitDownDelay()
+{
+    animator.SetTrigger("SitDown");
+    yield return new WaitForSeconds(0.62f);
+    animator.SetBool("IsSitting", true);
+    currentState = NPCState.Sitting;
+}`}
+  </SyntaxHighlighter>
+
+  <h3>Animator System</h3>
+  <p>
+    The Brut's animation transitions are tied directly to state changes and include:
+  </p>
+
+  <ul style={{ textAlign: "left" }}>
+    <li><strong>Idle Sit</strong> (default)</li>
+    <li><strong>Stand Up</strong> (trigger)</li>
+    <li><strong>Walk/Chase</strong> (speed-based blend)</li>
+    <li><strong>Attack</strong> (triggered)</li>
+    <li><strong>Sit Down</strong> (trigger + boolean)</li>
+    <li><strong>Look Around</strong> (boolean loop)</li>
+  </ul>
+
+  <img src="/images/BrutAnimator.png" alt="Brut Animator Tree" className="full-width-img" />
+  <figcaption>Animator state machine for the Brut NPC.</figcaption>
+
+  <h3>Vision Logic</h3>
+  <p>
+    The Brut uses the same field-of-view + raycast detection system as the Light Bot:
+  </p>
+
+  <SyntaxHighlighter language="csharp" style={dracula}>
+{`bool CanSeePlayer()
+{
+    Collider[] hits = Physics.OverlapSphere(transform.position, sightRange, playerLayer);
+    foreach (var hit in hits)
+    {
+        Vector3 dir = (hit.transform.position - (transform.position + Vector3.up * eyeHeight)).normalized;
+        float angle = Vector3.Angle(transform.forward, dir);
+        if (angle < viewAngle / 2f)
+        {
+            if (Physics.Raycast(transform.position + Vector3.up * eyeHeight, dir, out RaycastHit hitInfo, sightRange))
+            {
+                if (hitInfo.collider.CompareTag("Player"))
+                {
+                    target = hit.transform;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}`}
+  </SyntaxHighlighter>
+
+  <h3>Demo Video</h3>
+  
+  <iframe 
+    src="https://drive.google.com/file/d/1CveLFGAjJ8kr5y7iKCeNRml23NnC2x6u/preview" 
+    width="100%" 
+    height="400"
+    allow="autoplay">
+  </iframe>
+  <figcaption> Brut AI reacting to player presence and returning to idle.</figcaption>
+
+
+
+
+
+
+</section>
+
+ <div className="section-divider"></div> 
+<section>
+  <h2>Level Design & Game Flow</h2>
+
+  <h3>Summary of Demo Levels</h3>
+  <p>
+    The current demo is split into two sequential levels designed to introduce the player to movement and stealth mechanics, along with some background about the world the player finds themselves in.
+    This represents a small picture of the intended full experience, blending narrative and gameplay seamlessly while teaching core mechanics through natural progression.
+  </p>
+
+  <h4>Level 1: Dream, Cell, and Escape</h4>
+  <ul style={{ textAlign: "left" }}>
+    <li><strong>Dream Tutorial:</strong> The game opens in a surreal, dreamlike corridor where the player learns basic controls (movement, crouch, interaction). Lore is delivered through whispers and visual prompts.</li>
+    <li><strong>Back to Reality:</strong> The player awakens in a prison cell, echoing the dream space, and begins the actual escape.</li>
+    <li><strong>Escape the Cell:</strong> There are two primary escape methods—find a hidden key and unlock the door, or use a newly acquired teleport ability to phase through the bars.</li>
+    <li><strong>Brut Encounter:</strong> After escaping the cell, the player must confront a stationary Brut who guards the exit. </li>
+    <li><strong>Level Exit:</strong> After defeating or bypassing the Brut, the player opens the exit gate and proceeds into the next area.</li>
+  </ul>
+
+  <h4>Level 2: Patrol Floor & Portal</h4>
+  <ul style={{ textAlign: "left" }}>
+    <li><strong>Two-Floor Prison Gauntlet:</strong> The second level features a larger, multi-level interior filled with patrolling Light Bots. The player must carefully navigate both floors while managing shadow power and avoiding detection.</li>
+    <li><strong>Stealth Emphasis:</strong> Shadow zones, teleportation paths, and alternative routes allow for multiple approaches. Detection is lethal — success depends on patience and awareness.</li>
+    <li><strong>The Portal:</strong> At the top of the structure, the player activates a mysterious portal which warps them to the edge of the island.</li>
+  </ul>
+
+  <h3>Looking Forward</h3>
+  <p>
+    Upon exiting the prison, the player reaches the true beginning of their journey — the open-world island of Erephos.  
+    Here, the scope expands: players will explore ruined sanctuaries, confront moral dilemmas, unlock new powers, and interact with factions still living in the shadow of past conflict.
+  </p>
+
+  <p>
+    Future levels will focus on player choice, deeper stealth and traversal mechanics, narrative consequences, and unlocking the truth behind the shadow curse.  
+    The prison was only the beginning… <em>the real journey is just beginning.</em>
+  </p>
+</section>
+
+ <div className="section-divider"></div>
+
+ <h3>Full Demo Playthrough</h3>
+<p>
+  The demo shows a complete playthrough, from the dream tutorial through both levels and ending at the portal exit.
+  It demonstrates the main character systems, enemy AI, level design, and stealth mechanics in action.
+</p>
+
+<iframe 
+  width="100%" 
+  height="400" 
+  src="https://www.youtube.com/embed/qs-ofQhwDqg?si=9CdGqhkNwR8Pd9W2" 
+  title="Demo Playthrough" 
+  frameBorder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+  allowFullScreen>
+</iframe>
+
+<figcaption>Complete demo walkthrough showcasing all implemented systems.</figcaption>
+
+
+ <div className="section-divider"></div>
+</section>
 
             
 
@@ -822,18 +1334,6 @@ if (hitColliders.Length > 0)
                     
                     <li><strong>ChatGPT</strong> - OpenAI. Used for code assistance, structuring documentation, and refining ideas.</li>
                 </ul>
-            </section>
-
-            <div className="section-divider"></div>
-
-            {/* Conclusion */}
-            <section>
-                <h2>Conclusion</h2>
-                <p>
-                    The development of <strong>The Curse of Erephos</strong> focuses on blending stealth gameplay, supernatural abilities, and moral dilemmas into an engaging experience.
-                    Future development will expand current mechanics, and focus on expanding and building the world that the player will interact with.
-
-                </p>
             </section>
 
             <footer>
