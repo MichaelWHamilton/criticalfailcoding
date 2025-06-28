@@ -20,7 +20,7 @@ const AdvGameProgrammingReport = () => {
 
             <p>
                 <strong>The Curse of Erephos</strong> is a stealth-action game inspired by <em>Dishonored</em> and <em>Aragami</em>.  
-                Like <em>Dishonored</em>, the game presents players with moral choices—whether to take a lethal approach  
+                Like <em>Dishonored</em>, the game presents players with moral choices,whether to take a lethal approach  
                 or rely on stealth to outmaneuver enemies. However, this story unfolds in a mystical island setting  
                 where <strong>light and shadow</strong> are deeply entwined in history and power.
             </p>
@@ -29,7 +29,7 @@ const AdvGameProgrammingReport = () => {
                 Players assume the role of a prisoner captured by the <strong>Solmara</strong>, a ruling faction that harnesses the power of light.  
                 The Solmara have occupied <strong>Erephos</strong> for centuries, oppressing the remnants of the <strong>Umbric</strong>,  
                 an ancient civilization that once wielded shadows to sustain their land.  
-                The protagonist, imprisoned by the Solmara, becomes the unwilling host of a vengeful shadow spirit—  
+                The protagonist, imprisoned by the Solmara, becomes the unwilling host of a vengeful shadow spirit,  
                 a remnant of the Umbric people’s lost power.
             </p>
 
@@ -76,7 +76,7 @@ const AdvGameProgrammingReport = () => {
             <section>
                 <h2>Game Mechanics</h2>
                 <ul style={{textAlign: "left"}}>
-                    <li><strong>Character Arc(s):</strong> The protagonist evolves based on choices—either embracing vengeance or seeking redemption.</li>
+                    <li><strong>Character Arc(s):</strong> The protagonist evolves based on choices,either embracing vengeance or seeking redemption.</li>
                     <li><strong>Game World:</strong> The mystical island of Erephos, featuring ancient ruins, Solmara settlements, and hidden sanctuaries.</li>
                     <li><strong>Stealth & Abilities:</strong> Players navigate patrols, avoid detection, and use shadow-based powers such as teleportation and disguise.</li>
                     <li><strong>Task Modality:</strong> Open-ended objectives allow missions to be completed in multiple ways, from confrontation to pure stealth.</li>
@@ -133,7 +133,7 @@ const AdvGameProgrammingReport = () => {
                     <p>
                         The NPCs in <strong>The Curse of Erephos</strong> navigate the environment using a waypoint-based patrol system. 
                         Each NPC follows a designated path using <strong>Unity's NavMesh system</strong>, ensuring smooth movement across the map. 
-                        However, they are not simply passive wanderers—when a player enters their detection radius, they switch to a <strong>chase state</strong>.
+                        However, they are not simply passive wanderers,when a player enters their detection radius, they switch to a <strong>chase state</strong>.
                     </p>
 
                     <p>

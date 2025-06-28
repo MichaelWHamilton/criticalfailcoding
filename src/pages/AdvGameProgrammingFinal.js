@@ -9,6 +9,7 @@ const AdvGameProgrammingFinal = () => {
             <header>
                 <h1>Advanced Game Programming</h1>
                 <h2>The Curse of Erephos</h2>
+                <h3><a href="https://www.youtube.com/watch?v=qs-ofQhwDqg">Full Gameplay Demo</a></h3>
                 <p><strong>By: Michael Hamilton</strong> | <em>Spring 2025</em></p>
             </header>
 
@@ -19,7 +20,7 @@ const AdvGameProgrammingFinal = () => {
 
             <p>
                 <strong>The Curse of Erephos</strong> is a stealth-action game inspired by <em>Dishonored</em> and <em>Aragami</em>.  
-                Like <em>Dishonored</em>, the game presents players with moral choices—whether to take a lethal approach  
+                Like <em>Dishonored</em>, the game presents players with moral choices,whether to take a lethal approach  
                 or rely on stealth to outmaneuver enemies. However, this story unfolds in a mystical island setting  
                 where <strong>light and shadow</strong> are deeply entwined in history and power. The gameplay scene involvs a player esacping prison, and reaching the
                 mainland, realizing there is much more to come. 
@@ -29,7 +30,7 @@ const AdvGameProgrammingFinal = () => {
                 Players assume the role of a prisoner captured by the <strong>Solmara</strong>, a ruling faction that harnesses the power of light.  
                 The Solmara have occupied <strong>Erephos</strong> for centuries, oppressing the remnants of the <strong>Umbric</strong>,  
                 an ancient civilization that once wielded shadows to sustain their land.  
-                The protagonist, imprisoned by the Solmara, becomes the unwilling host of a vengeful shadow spirit—  
+                The protagonist, imprisoned by the Solmara, becomes the unwilling host of a vengeful shadow spirit,  
                 a remnant of the Umbric people’s lost power.
             </p>
 
@@ -75,7 +76,7 @@ const AdvGameProgrammingFinal = () => {
             <section>
                 <h2>Game Mechanics</h2>
                 <ul style={{textAlign: "left"}}>
-                    <li><strong>Character Arc(s):</strong> The protagonist evolves based on choices—either embracing vengeance or seeking redemption.</li>
+                    <li><strong>Character Arc(s):</strong> The protagonist evolves based on choices,either embracing vengeance or seeking redemption.</li>
                     <li><strong>Game World:</strong> The mystical island of Erephos, featuring ancient ruins, Solmara settlements, and hidden sanctuaries.</li>
                     <li><strong>Stealth & Abilities:</strong> Players navigate patrols, avoid detection, and use shadow-based powers such as teleportation to get past enemies.</li>
                     <li><strong>Task Modality:</strong> Open-ended objectives allow missions to be completed in multiple ways, from confrontation to pure stealth.</li>
@@ -155,7 +156,7 @@ const AdvGameProgrammingFinal = () => {
                     <h2>Main Character</h2>
 
                     <p>
-                        The main character in <strong>The Curse of Erephos</strong> is the player’s anchor in the world—both narratively and mechanically.
+                        The main character in <strong>The Curse of Erephos</strong> is the player’s anchor in the world,both narratively and mechanically.
                         From movement and camera control to supernatural powers and stealth mechanics, every system is designed to emphasize 
                         immersion. This section highlights the character’s role that drives gameplay.
                     </p>
@@ -365,7 +366,7 @@ else if (sword_hand.activeInHierarchy && Input.GetKey(KeyCode.Q))
 </p>
 
 <p>
-    A video demonstration of this system—showing how player input affects movement, animation, and camera behavior—is provided below:
+    A video demonstration of this system,showing how player input affects movement, animation, and camera behavior,is provided below:
 </p>
 
 <iframe 
@@ -448,7 +449,7 @@ if (Input.GetKeyDown(KeyCode.G) && !hasGrabbedSword)
 
 <p>
     To ensure precise synchronization between gameplay mechanics and animation sequences, several actions are controlled via <strong>coroutines</strong>.  
-    These coroutines allow delays, timed effects, and state toggling to occur exactly when the animation requires them—preventing premature interactions or unintended behavior.
+    These coroutines allow delays, timed effects, and state toggling to occur exactly when the animation requires them,preventing premature interactions or unintended behavior.
 </p>
 
 <h5>Attack</h5>
@@ -748,7 +749,7 @@ animator.SetBool("IsDead", false); // on reset`}
 
   <p>
     This mechanic forms the backbone of the player's supernatural toolkit.  
-    The player must manage this resource carefully — using it too often without returning to shadow may leave them vulnerable and powerless.
+    The player must manage this resource carefully , using it too often without returning to shadow may leave them vulnerable and powerless.
   </p>
 
 
@@ -904,13 +905,13 @@ if (Input.GetKeyUp(KeyCode.T) && Time.time > lastTeleportTime + teleportCooldown
 
   <h3>Light Bot</h3>
   <p>
-    The Light Bot is a mobile, patrolling construct powered by internal light. Its design emphasizes an otherworldly aesthetic — glowing from within, with animated inner joints that radiate illumination.  
+    The Light Bot is a mobile, patrolling construct powered by internal light. Its design emphasizes an otherworldly aesthetic , glowing from within, with animated inner joints that radiate illumination.  
     It will patroll between waypoints until it detects the player. Once alerted, it enters a chase state. If the player escapes, it will eventually return to its patrol route.
   </p>
 
   <h3>Brut</h3>
   <p>
-    The Brut is equipped with a battle axe. Unlike the Light Bot, it remains stationary — sitting idle until a player enters its detection range.  
+    The Brut is equipped with a battle axe. Unlike the Light Bot, it remains stationary , sitting idle until a player enters its detection range.  
     Upon spotting the player, the Brut stands, activates its attack logic, and uses a ranged light-based projectile to engage. If the player escapes, the Brut returns to its seated idle state.
   </p>
 
@@ -1266,7 +1267,7 @@ if (Input.GetKeyUp(KeyCode.T) && Time.time > lastTeleportTime + teleportCooldown
   <ul style={{ textAlign: "left" }}>
     <li><strong>Dream Tutorial:</strong> The game opens in a surreal, dreamlike corridor where the player learns basic controls (movement, crouch, interaction). Lore is delivered through whispers and visual prompts.</li>
     <li><strong>Back to Reality:</strong> The player awakens in a prison cell, echoing the dream space, and begins the actual escape.</li>
-    <li><strong>Escape the Cell:</strong> There are two primary escape methods—find a hidden key and unlock the door, or use a newly acquired teleport ability to phase through the bars.</li>
+    <li><strong>Escape the Cell:</strong> There are two primary escape methods,find a hidden key and unlock the door, or use a newly acquired teleport ability to phase through the bars.</li>
     <li><strong>Brut Encounter:</strong> After escaping the cell, the player must confront a stationary Brut who guards the exit. </li>
     <li><strong>Level Exit:</strong> After defeating or bypassing the Brut, the player opens the exit gate and proceeds into the next area.</li>
   </ul>
@@ -1274,13 +1275,13 @@ if (Input.GetKeyUp(KeyCode.T) && Time.time > lastTeleportTime + teleportCooldown
   <h4>Level 2: Patrol Floor & Portal</h4>
   <ul style={{ textAlign: "left" }}>
     <li><strong>Two-Floor Prison Gauntlet:</strong> The second level features a larger, multi-level interior filled with patrolling Light Bots. The player must carefully navigate both floors while managing shadow power and avoiding detection.</li>
-    <li><strong>Stealth Emphasis:</strong> Shadow zones, teleportation paths, and alternative routes allow for multiple approaches. Detection is lethal — success depends on patience and awareness.</li>
+    <li><strong>Stealth Emphasis:</strong> Shadow zones, teleportation paths, and alternative routes allow for multiple approaches. Detection is lethal , success depends on patience and awareness.</li>
     <li><strong>The Portal:</strong> At the top of the structure, the player activates a mysterious portal which warps them to the edge of the island.</li>
   </ul>
 
   <h3>Looking Forward</h3>
   <p>
-    Upon exiting the prison, the player reaches the true beginning of their journey — the open-world island of Erephos.  
+    Upon exiting the prison, the player reaches the true beginning of their journey , the open-world island of Erephos.  
     Here, the scope expands: players will explore ruined sanctuaries, confront moral dilemmas, unlock new powers, and interact with factions still living in the shadow of past conflict.
   </p>
 

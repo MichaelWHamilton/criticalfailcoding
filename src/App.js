@@ -17,7 +17,7 @@ function App() {
         <Route path="/ColorGameV2" element={<ColorGameV2/>} />
         <Route path="/AdvGameProgramming" element={<AdvGameProgramming/>} />
         <Route path="/AdvGameProgrammingFinal" element={<AdvGameProgrammingFinal/>} />
-        <Route path="/chatroom" element={<ChatRoom/>} />
+        {/* <Route path="/chatroom" element={<ChatRoom/>} /> */}
       </Routes>
       <Analytics />
     </Router>
