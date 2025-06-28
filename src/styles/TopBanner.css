@@ -1,0 +1,23 @@
+.top-banner {
+  background: linear-gradient(to right, #2b2e4a, #1e1f26);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.top-banner button {
+  background-color: white;
+  color: #2b2e4a;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.top-banner button:hover {
+  background-color: #ddd;
+}

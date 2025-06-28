@@ -4,7 +4,7 @@ const projects = [
     {
         title: "Curse of Erephos - Unity Game",
         description: "Stealth-action game inspired by Dishonored and Aragami. The game presents moral choices for the player and unfolds in a mystical island setting where light and shadow are deeply entwined the islands history.",
-        link: "/AdvGameProgrammingFinal",
+        link: "/Curse-Of-Epheros-V2",
         active: true,
         image: "images/CurseEpherosThumbnail.png"
     },
