@@ -9,11 +9,11 @@ const projects = [
         image: "images/CurseEpherosThumbnail.png"
     },
     {
-        title: "Coming Soon",
-        description: "Coming Soon",
-        link: "#",
+        title: "Color Code Game",
+        description: "Given a color code you must try to select the matching color! Simple javascript game that dynamically creates objects of colors and removes them based on the users difficulty preferences! ",
+        link: "/ColorGame",
         active: false,
-        image: "images/comingsoon1.jpeg"
+        image: "images/colorGame.jpeg"
     },
     {
         title: "Coming soon",
