@@ -13,7 +13,7 @@ const projects = [
         description: "Given a color code you must try to select the matching color! Simple javascript game that dynamically creates objects of colors and removes them based on the users difficulty preferences! ",
         link: "/ColorGame",
         active: false,
-        image: "images/colorGame.jpeg"
+        image: "images/color.png"
     },
     {
         title: "Coming soon",
